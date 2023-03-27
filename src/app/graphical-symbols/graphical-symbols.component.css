@@ -1,0 +1,10 @@
+.img-container{
+  display: flex;
+  justify-content: center;
+}
+
+img{
+  transform: scale(1.4);
+}
+
+

@@ -1,0 +1,263 @@
+/* mat-toolbar {
+  background: #004a9f;
+  color: white;
+} */
+
+.box{
+  height: 80px;
+  margin: 16px 16px 0px 16px;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.box1{
+  font-size: 16px;
+  width: 300px;
+  background: #e8e0ec;
+  border: solid 1px #a587b2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box2{
+  font-size: 3em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  margin: 0px 25% 0px 15%;
+}
+
+/* .box2{
+  font-size: 2em;
+  width: 600px;
+  background: #e3edfb;
+  border: solid 1px #94add0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow:1;
+  margin: 0px 25% 0px 15%;
+} */
+
+.box3{
+  display: flex;
+  flex-direction: column;
+}
+
+.box3-1{
+  color: #fff;
+  width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transform: translateX(-5px);
+}
+
+.box3-2{
+  color: #fff;
+  width: 140px;
+  height: 40px;
+  border: solid 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+/* 更改所有mat-accordion的背景色 */
+.mat-accordion {
+  background: #064789;
+
+}
+
+.mat-accordion .mat-expansion-panel{
+  background: #dae8fc;
+}
+
+/* 更改mat-accordion的標題顏色 */
+.mat-accordion .mat-expansion-panel-header {
+  background: #064789;
+  color: #333;
+}
+
+.mat-accordion .mat-expansion-panel-header:hover{
+  background: #064789;
+  color: #333;
+}
+
+/* 更改mat-accordion的内容區域顏色 */
+.mat-accordion .mat-expansion-panel-content {
+  background: #064789;
+  color: #333;
+}
+
+mat-panel-title{
+  color: #fff;
+  font-size: 20px;
+}
+
+
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+  border: solid 1px;
+  margin: 16px;
+}
+
+mat-sidenav {
+  margin: 16px;
+  width: 200px;
+  border-right: none;
+  background: #002b5c;
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.content {
+  /* background: #1e1e2f; */
+  background: #dae8fc;
+  height: calc(100vh - 130px);
+  border-radius: 10px;
+  margin: 16px;
+  margin-left: 32px;
+  padding: 16px;
+  overflow: auto;
+
+  /*改為hidden可消除滾輪*/
+  overflow: auto;
+  /*將橫向多出的內容刪減*/
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari 隱藏滾輪*/
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+  margin: 10px 0px;
+}
+
+.menu-button:hover{
+  transform: translateX(-5px) scale(1.1);
+  transition: all 0.6s;
+}
+
+.bottn-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button{
+  position: relative;
+  top: 220px;
+  border: solid 1px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin: 10px 0px;
+}
+
+.logout-button:hover{
+  background-color: rgba(128, 128, 128, 0.2);
+  transform: translateX(-5px) scale(1.1);
+  transition: all 0.6s;
+}
+
+.menu-button-select{
+  background-color: #fff;
+  color: black;
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.name {
+  margin-top: 8px;
+  font-weight: normal;
+}
+.designation {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: lightgrey;
+}
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+mat-panel-title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+  margin-left: 0;
+}
+
+.mat-header-cell{
+  text-align: center;
+}
+
+.mat-cell{
+  text-align: center;
+}
+
+.title{
+  font-size: 1.5em;
+}
+
+
+td{
+  font-size: 15px;
+}
+
+.grey-cell {
+  background-color: grey;
+}
+
+/*淡入淡出動畫*/
+.fadeInOut {
+  opacity: 1;
+}
+
+.fadeInOut.ng-enter,
+.fadeInOut.ng-leave {
+  transition: opacity 2000ms ease;
+}
+
+.fadeInOut.ng-enter {
+  opacity: 0;
+}
+
+.fadeInOut.ng-leave {
+  opacity: 1;
+}

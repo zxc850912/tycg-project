@@ -1,0 +1,135 @@
+/* .container{
+  display: flex;
+  justify-content: center;
+}
+
+.box{
+  margin-top: 30px;
+  width: 500px;
+  height: 60px;
+  background: #98bedb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+} */
+
+mat-form-field{
+  /* background: #015ca8; */
+  background: #fff;
+  /* color: #fff; */
+  color: #000;
+  border-radius: 15px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  height: 50px;
+  margin: 20px 10px;
+}
+
+.timePicker{
+  width: 180px;
+  height: 50px;
+  border: #000;
+  border-radius: 15px;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  margin: 20px 10px;
+  text-align: center;
+  font-size: 18px;
+  padding-right: 10px;
+}
+
+
+mat-label{
+  /* color: #fff; */
+  color: #000;
+}
+
+
+::ng-deep .mat-select-placeholder {
+  /* color: #fff; */
+  color: #000;
+}
+
+
+mat-datepicker-toggle{
+  /* color: #fff; */
+  color: #000;
+}
+
+mat-select-placeholder{
+  /* color: #fff; */
+  color: #000;
+}
+
+.mainbtn{
+  margin: 0px 15px;
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+  border:0;
+  background-color:#003C9D;
+  color:#fff;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.mainbtn:hover{
+  color:#003C9D;
+  background-color:#fff;
+  border:2px #003C9D solid;
+  transform: scale(1.2);
+}
+
+.mainbtn:active{
+  transform: scale(1);
+  box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, .2);
+}
+
+.switchbtn{
+  margin: 0px 15px;
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+  border:0;
+  color:#fff;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.switchbtn:hover{
+  background-color:#fff;
+  border:2px #fff solid;
+  transform: scale(1.2);
+}
+
+.switchbtn:active{
+  transform: scale(1);
+  box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, .2);
+}
+
+.demo-chart{
+  background: #fff;
+  border: solid 1px #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+}
+
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+

@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari 隱藏滾輪*/
+}
+
+body{
+  background: #002b5c;
+}
+
+/*改變.mat-form-field的一些間距*/
+.mat-form-field.custom-form-field .mat-form-field-wrapper {
+  margin: 0;
+}
+
+/* 將文字顏色設為白色 */
+/* .custom-form-field .mat-select-value {
+  color: #fff;
+} */
+

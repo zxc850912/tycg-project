@@ -1,0 +1,130 @@
+/* .container{
+  display: flex;
+  justify-content: center;
+}
+
+.box{
+  margin-top: 30px;
+  width: 500px;
+  height: 60px;
+  background: #98bedb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+} */
+
+mat-form-field{
+  margin-left: 10%;
+  background-color: #fff;
+  height: 60px;
+}
+
+
+.table-container{
+  display: flex;
+  justify-content: center;
+}
+
+.title{
+  background: #025ca6;
+  color: #fff;
+}
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+  color: #025ca6;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.container{
+  display: flex;
+}
+
+table{
+  border: solid 1px;
+  font-size: 20px;
+}
+
+td{
+  height: 40px;
+  text-align: center;
+}
+
+.light-background{
+  background: #cddeed;
+  width: 150px;
+}
+
+.dark-background{
+  background: #98bedb;
+  width: 60px;
+}
+
+.img-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.tablePump{
+  margin-left: -108px;
+  display: flex;
+  flex-direction: column;
+}
+
+.device{
+  position: relative;
+  bottom: -150px;
+}
+
+.arrow{
+  position: relative;
+  bottom: -180px;
+}
+
+.totalSetting{
+  display: flex;
+}
+
+.mainImg{
+  margin: 0px 15px;
+}
+
+.autoTable{
+  display: flex;
+}
+
+.pump{
+  margin-top: 80px;
+  margin-right: 50px;
+}
+
+.cell{
+  display: flex;
+  justify-content: center;
+}
+
+.cell-table{
+  margin: 0px 15px;
+  width: 160px;
+}
+
+/*淡入淡出動畫*/
+.fadeInOut {
+  opacity: 1;
+}
+
+.fadeInOut.ng-enter,
+.fadeInOut.ng-leave {
+  transition: opacity 2000ms ease;
+}
+
+.fadeInOut.ng-enter {
+  opacity: 0;
+}
+
+.fadeInOut.ng-leave {
+  opacity: 1;
+}

@@ -1,0 +1,233 @@
+<!-- <mat-toolbar class="mat-elevation-z8">
+  <button
+    mat-icon-button
+    *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  </button>
+
+  <div class="box">
+    <span class="box1">logo</span><span class="box2">proprietor/corporation name</span>
+  </div>
+
+</mat-toolbar> -->
+
+<div [@fadeInOut]="tabGroupAnimation" animationDuration="0s">
+  <div class="box">
+    <!-- <span class="box1">logo</span><span class="box2">proprietor/corporation name</span><span class="box3">title</span> -->
+    <div class="box1">logo&nbsp;&nbsp;|&nbsp;&nbsp; proprietor/corporation name</div>
+    <div class="box2"> {{pageTitle}} </div>
+    <div class="box3">
+      <div class="box3-1">{{time}}</div>
+      <div class="box3-2">auk.ai</div>
+    </div>
+  </div>
+  <br>
+
+  <mat-accordion multi *ngFor="let item of deviceList">
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{item.name}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="item.titles" class="mat-elevation-z8" border="1">
+
+          <!-- <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" style="padding: 0;"class="title"> Cell No. </th>
+          </ng-container> -->
+
+          <ng-container matColumnDef="Space">
+            <th mat-header-cell *matHeaderCellDef class="title" style="padding:0;">  </th>
+          </ng-container>
+
+          <ng-container matColumnDef="System">
+            <th mat-header-cell *matHeaderCellDef class="title"> System </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Opearting-value">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="7" class="title"> Opearting value </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Status-value">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="5" class="title"> Status value(°C) </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Deterioration-value">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2" class="title"> Deterioration value </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Temp">
+            <th mat-header-cell *matHeaderCellDef class="title"> Temp. </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Fan-Power">
+            <th mat-header-cell *matHeaderCellDef class="title"> Fan Power </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Pump-Power">
+            <th mat-header-cell *matHeaderCellDef class="title"> Pump Power </th>
+          </ng-container>
+
+          <ng-container matColumnDef="Performance">
+            <th mat-header-cell *matHeaderCellDef style="padding: 0;" class="title"> Performance </th>
+          </ng-container>
+
+
+          <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay;let i=index">
+            <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{displayedColumns[i]}} </th>
+            <td mat-cell *matCellDef="let element" style="padding:0;" [ngStyle]="
+            {
+              'background':
+              element[column] === '' ? 'white' :
+              element[column] === 'OFF' ? 'grey' :
+              element[column] === 'ON' ? 'white' :
+              element[column] === 'Normal' ? 'green' :
+
+              element[column] < 0.01 && column === 'fan_Power_A' ? 'grey' :
+              element[column] > 0.01 && element[column] < 0.35 && column === 'fan_Power_A' ? 'red' :
+              element[column] > 0.35 && element[column] < 0.95 && column === 'fan_Power_A' ? 'green' :
+              element[column] > 0.95 && element[column] < 1.1 && column === 'fan_Power_A' ? 'yellow' :
+              element[column] > 1.1 && column === 'fan_Power_A' ? 'red' :
+
+              element[column] < 0.01 && column === 'pump_Power_A' ? 'grey' :
+              element[column] > 0.01 && element[column] < 0.35 && column === 'pump_Power_A' ? 'red' :
+              element[column] > 0.35 && element[column] < 0.95 && column === 'pump_Power_A' ? 'green' :
+              element[column] > 0.95 && element[column] < 1.1 && column === 'pump_Power_A' ? 'yellow' :
+              element[column] > 1.1 && column === 'pump_Power_A' ? 'red' :
+
+              element[column] <= 0 && column === 'water_Flow' ? 'grey' :
+              element[column] > 0 && element[column] < 100 && column === 'water_Flow' ? 'green' :
+              element[column] >= 100 && column === 'water_Flow' ? 'red' :
+
+              element[column] < 18 && column === 'hot_Water' ? 'grey' :
+              element[column] > 18 && element[column] < 37 && column === 'hot_Water' ? 'green' :
+              element[column] > 37 && element[column] < 40 && column === 'hot_Water' ? 'yellow' :
+              element[column] > 40 && column === 'hot_Water' ? 'red' :
+
+              element[column] < 16 && column === 'cool_Water' ? 'grey' :
+              element[column] > 16 && element[column] < 32 && column === 'cool_Water' ? 'green' :
+              element[column] > 32 && element[column] < 35 && column === 'cool_Water' ? 'yellow' :
+              element[column] > 35 && column === 'cool_Water' ? 'red' :
+
+              element[column] <= 0  && column === 'inlet_Air_WB' ? 'grey' :
+              element[column] > 0 && element[column] < 50 && column === 'inlet_Air_WB' ? 'green' :
+              element[column] >= 50 && column === 'inlet_Air_WB' ? 'red' :  'none',
+              'color':
+              element[column] === 'OFF' ? 'white' :
+              element[column] === 'Normal' ? 'white' :
+
+              element[column] < 0.01 && column === 'fan_Power_A' ? 'white' :
+              element[column] > 0.01 && element[column] < 0.35 && column === 'fan_Power_A' ? 'white' :
+              element[column] > 0.35 && element[column] < 0.95 && column === 'fan_Power_A' ? 'white' :
+              element[column] > 0.95 && element[column] < 1.1 && column === 'fan_Power_A' ? 'white' :
+              element[column] > 1.1 && column === 'fan_Power_A' ? 'white' :
+
+              element[column] < 0.01 && column === 'pump_Power_A' ? 'white' :
+              element[column] > 0.01 && element[column] < 0.35 && column === 'pump_Power_A' ? 'white' :
+              element[column] > 0.35 && element[column] < 0.95 && column === 'pump_Power_A' ? 'white' :
+              element[column] > 0.95 && element[column] < 1.1 && column === 'pump_Power_A' ? 'white' :
+              element[column] > 1.1 && column === 'pump_Power_A' ? 'white' :
+
+              element[column] <= 0 && column === 'water_Flow' ? 'white' :
+              element[column] > 0 && element[column] < 100 && column === 'water_Flow' ? 'white' :
+              element[column] >= 100 && column === 'water_Flow' ? 'white' :
+
+              element[column] < 18 && column === 'hot_Water' ? 'white' :
+              element[column] > 18 && element[column] < 37 && column === 'hot_Water' ? 'white' :
+              element[column] > 37 && element[column] < 40 && column === 'hot_Water' ? 'white' :
+              element[column] > 40 && column === 'hot_Water' ? 'white' :
+
+              element[column] < 16 && column === 'cool_Water' ? 'white' :
+              element[column] > 16 && element[column] < 32 && column === 'cool_Water' ? 'white' :
+              element[column] > 32 && element[column] < 35 && column === 'cool_Water' ? 'white' :
+              element[column] > 35 && column === 'cool_Water' ? 'white' :
+
+              element[column] <= 0  && column === 'inlet_Air_WB' ? 'white' :
+              element[column] > 0 && element[column] < 50 && column === 'inlet_Air_WB' ? 'white' :
+              element[column] >= 50 && column === 'inlet_Air_WB' ? 'white' :
+
+              'black'}"> {{ column === 'dV2' ? (element[column] | number:'1.2-2') : element[column] }} </td>
+            <!--當column等於'dV2'時會執行()內表達式,不等於就直接顯示:後面的原始值-->
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="PerformanceAbn">
+            <th mat-header-cell *matHeaderCellDef style="padding: 0;"> Abnormal </th>
+            <td mat-cell *matCellDef="let element" align="center" style="padding: 0;"> {{element.PerformanceAbn}} </td>
+          </ng-container> -->
+
+
+          <tr mat-header-row *matHeaderRowDef="['Space','System','Opearting-value','Status-value','Deterioration-value','Temp','Fan-Power','Pump-Power','Performance']"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          16樓水塔
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel> -->
+  </mat-accordion>
+
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <button mat-button class="menu-button" routerLink="/Home/SystemScope" (click)="onButtonClick('System Scope')" routerLinkActive="menu-button-select">
+        <span>System Scope</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/Signal" (click)="onButtonClick('Signal')" routerLinkActive="menu-button-select">
+        <span>Signal</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/DAU" (click)="onButtonClick('DAU')" routerLinkActive="menu-button-select">
+        <span>DAU</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/Curve" (click)="onButtonClick('Curve')" routerLinkActive="menu-button-select">
+        <span>Curve</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/EMS" (click)="onButtonClick('EMS')" routerLinkActive="menu-button-select">
+        <span>EMS</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/Report" (click)="onButtonClick('Report')" routerLinkActive="menu-button-select">
+        <span>Report</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/GraphicalSymbols" (click)="onButtonClick('Graphical Symbols')" routerLinkActive="menu-button-select">
+        <span>Graphical Symbols</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/SystemSetting" (click)="onButtonClick('System Setting')" routerLinkActive="menu-button-select">
+        <span>System Setting</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/Export" (click)="onButtonClick('Export')" routerLinkActive="menu-button-select">
+        <span>Export</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/Home/testarea" routerLinkActive="menu-button-select">
+        <span>testarea</span>
+      </button>
+
+      <!-- <button mat-button class="menu-button" routerLink="/AdvanceData">
+        <span>Advance data</span>
+      </button> -->
+      <div class="bottn-container">
+        <button mat-button class="logout-button" matTooltip="Are you sure you want to log out?" matTooltipPosition="above" (click)="logout()">
+          <span>Logout</span>
+        </button>
+      </div>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content mat-elevation-z8">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
+
+
+

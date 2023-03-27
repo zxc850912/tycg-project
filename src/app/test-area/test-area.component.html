@@ -1,0 +1,74 @@
+<!-- maintable -->
+<!-- <mat-accordion *ngFor="let item of accordionItems">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{item.title}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <table mat-table [dataSource]="item.data" class="mat-elevation-z8">
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay;let i=index">
+        <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{displayedColumns[i]}} </th>
+        <td mat-cell *matCellDef="let element" style="padding:0;"> {{element[column]}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-expansion-panel>
+
+</mat-accordion> -->
+
+
+<!-- <mat-tab-group>
+  <mat-tab label = {{item.title}} *ngFor="let item of tabs;let i=index">
+    <table mat-table [dataSource]="item.data" class="mat-elevation-z8">
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay2;let i=index">
+        <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{displayedColumns2[i]}} </th>
+        <td mat-cell *matCellDef="let element" style="padding:0;"> {{element[column]}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+    </table>
+    <br><br>
+    <div class="container">
+      <img class="device" src="/assets/device.png" alt="" style="margin-bottom: 30px; height: 70px; width: 60px;">
+      <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 120px;">
+
+      <div class="imgTable">
+        <ng-container *ngFor="let data of item.data">
+          <ng-container *ngIf="data.test === '橫式'">
+            <img class="mainImg" *ngFor="let image of Array(data.images)" src="/assets/horizontal.jpg" alt="" style="width: 160px;height: 200px">
+          </ng-container>
+          <ng-container *ngIf="data.test === '直式'">
+            <img class="mainImg" *ngFor="let image of Array(data.images)" src="/assets/straight.jpg" alt="" style="width: 160px;height: 200px">
+          </ng-container>
+        </ng-container>
+
+        <div class="autoTable" *ngFor="let item of item.data">
+          <table border="1" *ngFor="let cellData of item.cellDatas" class="cell-table">
+            <ng-container>
+              <tr>
+                <th class="title" colspan="3">{{cellData.name}}</th>
+              </tr>
+              <tr>
+                <td class="light-background" colspan="3">Inlet Air WB Temp.</td>
+              </tr>
+              <tr>
+                <td class="dark-background">{{cellData.inlet_Air_WB}}</td><td class="dark-background">°C</td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </div>
+
+      <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 120px;">
+    </div>
+  </mat-tab>
+</mat-tab-group> -->
+

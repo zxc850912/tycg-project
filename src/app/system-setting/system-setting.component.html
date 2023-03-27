@@ -1,0 +1,420 @@
+<br>
+<button (click)="sendData()" style="font-weight:bold;" id="saveBtn">Save</button>
+<br><br>
+
+<div class="total-container">
+  <ng-container *ngIf="showSpinner">
+    <div class="overlay"></div>
+    <mat-spinner></mat-spinner>
+  </ng-container>
+  <div class="container">
+    <!-- 電力參數 -->
+   <table border="1" class="electricity-table">
+    <th colspan="7">ELECTRIC PARAMETER</th>
+    <tr>
+      <td></td><td style="font-weight:bold; font-size: 15px;">Rate AMP</td><td style="background: #a6a6a6; font-weight:bold; font-size: 15px;">OFF</td><td style="background: #ff0000; font-weight:bold; font-size: 15px;">Lowest</td><td style="background: #ffff00; font-weight:bold; font-size: 15px;">Full</td><td style="background: #ff0000; font-weight:bold; font-size: 15px;">Over Load</td>
+    </tr>
+    <tr>
+      <td>Fan Power</td><td>{{motorRatedAmp}}</td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="fanOff">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="fanLowest">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="fanFull">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="fanOverLoad">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>Pump Power</td><td>{{pumpRatedAmp}}</td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="pumpOff">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="pumpLowest">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="pumpFull">
+        </mat-form-field>
+      </td><td>
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" placeholder="" [(ngModel)]="pumpOverLoad">
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  </div>
+
+  <br><br>
+  <div class="container">
+    <!-- system pa. -->
+    <div class="table-container">
+      <table border="1">
+        <th [colSpan]="3">GENERAL</th>
+        <tr>
+          <td>MANUFACTURER</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="manufacturer">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>MODEL NO.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="modelNo">
+            </mat-form-field>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>TYPE</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="type">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <th [colSpan]="3">DESIGN & OPERATING CONDITION</th>
+        <tr>
+          <td>TOTAL WATER FLOWRATE</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="totalWaterFlowrate">
+            </mat-form-field>
+          </td><td>M3/HR (LPM)</td>
+        </tr>
+        <tr>
+          <td>WATER FLOW RATE/CELL</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="waterFlowRateCell">
+            </mat-form-field>
+          </td><td>M3/HR (LPM)</td>
+        </tr>
+        <tr>
+          <td>HOT WATER TEMP.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="hotWaterTemp">
+            </mat-form-field>
+          </td><td>°C</td>
+        </tr>
+        <tr>
+          <td>COLD WATER TEMP.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="coldWaterTemp">
+            </mat-form-field>
+          </td><td>°C</td>
+        </tr>
+        <tr>
+          <td>AMB. WETBULB TEMP.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="ambWetbulbTemp">
+            </mat-form-field>
+          </td><td>°C</td>
+        </tr>
+        <tr>
+          <td>EVAPORATION LOSS</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="evaporationLoss">
+            </mat-form-field>
+          </td><td>%</td>
+        </tr>
+        <tr>
+          <td>DRIFTLOSS</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="dirftLoss">
+            </mat-form-field>
+          </td><td>%</td>
+        </tr>
+        <th [colSpan]="3">FAN UNIT</th>
+        <tr>
+          <td>NO. OF CELL</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="noOfCell">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>NO. OF FAN/CELL</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="noOfFanCell">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>TOTAL NO. OF FAN</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="totalNoOfFan">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>AIR VOLUME PER FAN (M3/MIN)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="airVolumePerFan">
+            </mat-form-field>
+          </td><td>M3/HR</td>
+        </tr>
+        <th [colSpan]="3">DRIVING MOTOR</th>
+        <tr>
+          <td>NO. /CELL</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="noCell">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>POWER SOURCE (PHASE)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorPowerSourcePhase">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>POWER SOURCE (HZ)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorPowerSourceHz">
+            </mat-form-field>
+          </td><td>HZ</td>
+        </tr>
+        <tr>
+          <td>POWER SOURCE (VOLT)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorPowerSourceVolt">
+            </mat-form-field>
+          </td><td>V</td>
+        </tr>
+        <tr>
+          <td>NUMBER OF MOTOR POLES</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorNumberOfMotorPoles">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>RATED H.P.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorRatedHP">
+            </mat-form-field>
+          </td><td>HP</td>
+        </tr>
+        <tr>
+          <td>RATED Power</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorRatedPower">
+            </mat-form-field>
+          </td><td>kW</td>
+        </tr>
+        <tr>
+          <td>RATED AMP.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="motorRatedAmp">
+            </mat-form-field>
+          </td><td>A</td>
+        </tr>
+        <th [colSpan]="3">PUMP UNIT/ DRIVING MOTOR</th>
+        <tr>
+          <td>POWER SOURCE (PHASE)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="pumpPowerSourcePhase">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>POWER SOURCE (HZ)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="pumpPowerSourceHz">
+            </mat-form-field>
+          </td><td>HZ</td>
+        </tr>
+        <tr>
+          <td>POWER SOURCE (VOLT)</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="pumpPowerSourceVolt">
+            </mat-form-field>
+          </td><td>V</td>
+        </tr>
+        <tr>
+          <td>NUMBER OF MOTOR POLES</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="pumpNumberOfMotorPoles">
+            </mat-form-field>
+          </td><td></td>
+        </tr>
+        <tr>
+          <td>RATED H.P.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="pumpRatedHP">
+            </mat-form-field>
+          </td><td>HP</td>
+        </tr>
+        <tr>
+          <td>RATED AMP.</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="pumpRatedAmp">
+            </mat-form-field>
+          </td><td>A</td>
+        </tr>
+      </table>
+    </div>
+    <!-- 時間參數 -->
+    <div class="table-container-straight">
+      <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8" border="1">
+        <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay2;let i=index">
+          <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{displayedColumns2[i]}} </th>
+          <td mat-cell *matCellDef="let element" style="padding:0;">
+            <ng-container *ngIf="i === 2">
+              <input matInput [(ngModel)]="element[column]">
+            </ng-container>
+            <ng-container *ngIf="i !== 2">
+              {{element[column]}}
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+      </table>
+      <br><br>
+
+      <br><br>
+      <!-- 溫溼度計參數 -->
+      <table border="1">
+        <th colspan="3">TEMPERATURE AND HUMIDITY PARAMETERS</th>
+        <tr>
+          <td></td><td style="background: #ff0000;font-weight:bold; font-size: 15px;">Lowest</td><td style="background: #ff0000;font-weight:bold; font-size: 15px;">Hightest</td>
+        </tr>
+        <tr>
+          <td>Temp</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="sensorTempLowest">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="sensorTempHightest">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>Rh</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="sensorRhLowest">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="sensorRhHightest">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <br><br>
+      <!-- BTU參數 -->
+      <table border="1">
+        <th colspan="4">BTU PARAMETERS</th>
+        <tr>
+          <td></td><td style="background: #ff0000;font-weight:bold; font-size: 15px;">Lowest</td><td style="background: #ff0000;font-weight:bold; font-size: 15px;">Hightest</td><td style="background: #ff0000;font-weight:bold; font-size: 15px;">over</td>
+        </tr>
+        <tr>
+          <td>HWT</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuHwtLowest">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuHwtHightest">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuHwtOver">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>CWT</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuCwtLowest">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuCwtHightest">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuCwtOver">
+            </mat-form-field>
+          </td>
+        </tr>
+        <br><br>
+        <tr>
+          <td>Flow</td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuFlowOff">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-form-field" appearance="outline">
+              <input matInput type="text" placeholder="" [(ngModel)]="btu_btuFlowOn">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+

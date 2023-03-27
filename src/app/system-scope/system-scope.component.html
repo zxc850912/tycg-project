@@ -1,0 +1,250 @@
+<!-- <div class="container">
+  <div class="box">
+    <div>System scope</div>
+  </div>
+</div>
+
+<br><br><br> -->
+<br><br>
+
+<!--加入[@fadeInOut]="tabGroupAnimation" animationDuration="0s"產生淡入淡出動畫-->
+<mat-tab-group [@fadeInOut]="tabGroupAnimation" animationDuration="0s">
+  <mat-tab label = {{item.name}} *ngFor="let item of dataList;let i=index">
+    <br><br><br>
+    <div class="table-container">
+      <table border="1">
+        <th class="title" colspan="6">{{item.setDatas[i].name}}</th>
+        <tr>
+          <td class="light-background">fan_Power_A</td><td class="dark-background"> {{item.setDatas[i].fan_Power_A}} </td><td class="dark-background">A</td>
+          <td class="light-background">Range Temp.</td><td class="dark-background"> {{item.setDatas[i].rangeTemp}} </td><td class="dark-background">°C</td>
+        </tr>
+        <tr>
+          <td class="light-background">inlet_Air_WB</td><td class="dark-background"> {{item.setDatas[i].inlet_Air_WB}} </td><td class="dark-background">°C</td>
+          <td class="light-background">Approach Temp.</td><td class="dark-background"> {{item.setDatas[i].approach}} </td><td class="dark-background">°C</td>
+        </tr>
+      </table>
+    </div>
+
+    <br><br>
+
+    <div class="img-container">
+      <div class="tablePump">
+        <table border="1">
+          <tr>
+            <td class="light-background">Hot Water Temp.</td><td class="dark-background">{{item.setDatas[i].hot_Water}}</td><td class="dark-background">°C</td>
+          </tr>
+        </table>
+        <div class="pump">
+          <table border="1">
+            <tr>
+              <td class="light-background">Pump Power Amp.</td><td class="dark-background">{{item.setDatas[i].pump_Power_A}}</td><td class="dark-background">A</td>
+            </tr>
+            <tr>
+              <td class="light-background">Water Flow</td><td class="dark-background">{{item.setDatas[i].water_Flow}}</td><td class="dark-background">CHM</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="container">
+        <img class="device" src="/assets/device.png" alt="" style="margin-bottom: 30px; height: 70px; width: 60px;">
+        <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 120px;">
+
+        <div>
+          <ng-container *ngFor="let data of item.setDatas">
+            <ng-container *ngIf="data.cell_Type === 0">
+              <img class="mainImg" *ngFor="let image of Array(data.cell_Num)" src="/assets/horizontal.jpg" alt="" style="width: 160px;height: 200px">
+            </ng-container>
+            <ng-container *ngIf="data.cell_Type === 1">
+              <img class="mainImg" *ngFor="let image of Array(data.cell_Num)" src="/assets/straight.jpg" alt="" style="width: 160px;height: 200px">
+            </ng-container>
+          </ng-container>
+
+          <div class="autoTable" *ngFor="let item of item.setDatas">
+            <table border="1" *ngFor="let cellData of item.cellDatas" class="cell-table">
+              <ng-container>
+                <tr>
+                  <th class="title" colspan="3">{{cellData.name}}</th>
+                </tr>
+                <tr>
+                  <td class="light-background" colspan="3">Inlet Air WB Temp.</td>
+                </tr>
+                <tr>
+                  <td class="dark-background">{{cellData.inlet_Air_WB}}</td><td class="dark-background">°C</td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 120px;">
+        <div>
+          <table border="1">
+            <tr>
+              <td class="light-background">Cold Water Temp.</td><td class="dark-background">{{item.setDatas[i].cool_Water}}</td><td class="dark-background">°C</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div>
+      <div class="img-container">
+        <div class="tablePump">
+          <table border="1">
+            <tr>
+              <td class="light-background">Hot Water Temp.</td><td class="dark-background">{{hot_Water}}</td><td class="dark-background">°C</td>
+            </tr>
+          </table>
+          <div class="pump">
+            <table border="1">
+              <tr>
+                <td class="light-background">Pump Power Amp.</td><td class="dark-background">{{pump_Power_A}}</td><td class="dark-background">A</td>
+              </tr>
+              <tr>
+                <td class="light-background">Water Flow</td><td class="dark-background">{{water_Flow}}</td><td class="dark-background">CHM</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <img class="device" src="/assets/device.png" alt="" style="margin-bottom: 30px; height: 70px; width: 60px;">
+        <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 120px;">
+        <div class="totalSetting">
+          <div class="imgTable">
+            <div class="imgSetting">
+              <img src="/assets/horizontal.jpg" alt="" class="mainImg" style="width: 160px;height: 200px">
+              <img src="/assets/horizontal.jpg" alt="" class="mainImg" style="width: 160px;height: 200px">
+            </div>
+            <div class="tableSetting">
+              <div class="cell">
+                <table border="1" class="cell-table">
+                  <th class="title" colspan="3">{{cell_1}}</th>
+                  <tr>
+                    <td class="light-background" colspan="3">Inlet Air WB Temp.</td>
+                  </tr>
+                  <tr>
+                    <td class="dark-background"> {{inlet_Air_WB1}} </td><td class="dark-background">°C</td>
+                  </tr>
+                </table>
+
+                <table border="1" class="cell-table">
+                  <th class="title" colspan="3">{{cell_2}}</th>
+                  <tr>
+                    <td class="light-background" colspan="3">Inlet Air WB Temp.</td>
+                  </tr>
+                  <tr>
+                    <td class="dark-background"> {{inlet_Air_WB2}} </td><td class="dark-background">°C</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 120px;">
+        <div>
+          <table border="1">
+            <tr>
+              <td class="light-background">Cold Water Temp.</td><td class="dark-background">{{cool_Water}}</td><td class="dark-background">°C</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div class="pump">
+      <table border="1">
+        <tr>
+          <td class="light-background">Pump Power Amp.</td><td class="dark-background">{{pump_Power_A}}</td><td class="dark-background">A</td>
+        </tr>
+        <tr>
+          <td class="light-background">Water Flow</td><td class="dark-background">{{water_Flow}}</td><td class="dark-background">CHM</td>
+        </tr>
+      </table>
+    </div> -->
+  </mat-tab>
+
+  <!-- <mat-tab label = "16樓水塔">
+    <br><br><br>
+    <div class="table-container">
+      <table border="1">
+        <th class="title" colspan="6">16樓水塔</th>
+        <tr>
+          <td class="light-background">fan_Power_A</td><td class="dark-background"> {{fan_Power_A}} </td><td class="dark-background">A</td>
+          <td class="light-background">Range Temp.</td><td class="dark-background"> {{rangeTemp}} </td><td class="dark-background">°C</td>
+        </tr>
+        <tr>
+          <td class="light-background">inlet_Air_WB</td><td class="dark-background"> {{inlet_Air_WB}} </td><td class="dark-background">°C</td>
+          <td class="light-background">Approach Temp.</td><td class="dark-background"> {{approach}} </td><td class="dark-background">°C</td>
+        </tr>
+
+      </table>
+    </div>
+
+    <br><br>
+
+    <div>
+      <div class="img-container">
+        <div class="tablePump">
+          <table border="1">
+            <tr>
+              <td class="light-background">Hot Water Temp.</td><td class="dark-background">{{hot_Water}}</td><td class="dark-background">°C</td>
+            </tr>
+          </table>
+          <div class="pump">
+            <table border="1">
+              <tr>
+                <td class="light-background">Pump Power Amp.</td><td class="dark-background">{{pump_Power_A}}</td><td class="dark-background">A</td>
+              </tr>
+              <tr>
+                <td class="light-background">Water Flow</td><td class="dark-background">{{water_Flow}}</td><td class="dark-background">CHM</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <img class="device" src="/assets/device.png" alt="" style="margin-bottom: 30px; height: 70px; width: 60px;">
+        <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 100px;">
+        <div class="totalSetting">
+          <div class="imgTable">
+            <div class="imgSetting">
+              <img src="/assets/horizontal.jpg" alt="" class="mainImg" style="width: 160px;height: 200px">
+              <img src="/assets/horizontal.jpg" alt="" class="mainImg" style="width: 160px;height: 200px">
+            </div>
+            <div class="tableSetting">
+              <div class="cell">
+                <table border="1" class="cell-table">
+                  <th class="title" colspan="3">{{cell_1}}</th>
+                  <tr>
+                    <td class="light-background" colspan="3">Inlet Air WB Temp.</td>
+                  </tr>
+                  <tr>
+                    <td class="dark-background"> {{inlet_Air_WB1}} </td><td class="dark-background">°C</td>
+                  </tr>
+                </table>
+
+                <table border="1" class="cell-table">
+                  <th class="title" colspan="3">{{cell_2}}</th>
+                  <tr>
+                    <td class="light-background" colspan="3">Inlet Air WB Temp.</td>
+                  </tr>
+                  <tr>
+                    <td class="dark-background"> {{inlet_Air_WB2}} </td><td class="dark-background">°C</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <img class="arrow" src="/assets/arrow.png" alt="" style="margin-bottom: 30px; height: 30px; width: 100px;">
+        <div>
+          <table border="1">
+            <tr>
+              <td class="light-background">Cold Water Temp.</td><td class="dark-background">{{cool_Water}}</td><td class="dark-background">°C</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab> -->
+</mat-tab-group>
