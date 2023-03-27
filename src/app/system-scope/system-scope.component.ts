@@ -86,7 +86,7 @@ export class SystemScopeComponent implements OnInit {
 
     //this.data$ = this.datasvc.SystemScope();
     this.data$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
       this.dataList = x;
       // this.title = x.setDatas[0].name;
       // this.fan_Power_A = x.setDatas[0].fan_Power_A;

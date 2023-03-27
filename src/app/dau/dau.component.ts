@@ -34,7 +34,7 @@ export class DAUComponent implements OnInit {
 
     //this.data$ = this.datasvc.DAU();
     this.data$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
       this.title = x[0].name;
       this.displayedColumns = x[0].signalName;
       this.columnsToDisplay = x[0].signalName;

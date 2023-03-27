@@ -40,14 +40,14 @@ export class SignalComponent implements OnInit {
 
     //this.data$ = this.datasvc.Signal();
     this.data$.subscribe((x)=>{
-      console.log(x.equipments);
+      // console.log(x.equipments);
       this.title = x.name;
 
       this.displayedColumns = x.signalName;
       // console.log(this.displayedColumns);
       this.columnsToDisplay = x.signalName;
       this.dataSource = x.equipments;
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
     })
   }
 

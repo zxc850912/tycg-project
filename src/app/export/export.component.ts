@@ -49,7 +49,7 @@ export class ExportComponent implements OnInit {
   constructor(public datasvc: DataService) {
     this.data$ = this.datasvc.ExportMainItem();
     this.data$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
       this.deviceList = x;
       this.deviceName = x[0].name;
       // console.log(this.deviceName);
@@ -67,7 +67,7 @@ export class ExportComponent implements OnInit {
 
     this.month = moment(ctrlValue).format('YYYY/MM');
     // console.log(this.month);
-    console.log(moment(this.month).daysInMonth())
+    // console.log(moment(this.month).daysInMonth())
     this.start = this.month + "/" + 1;
     // console.log(this.start);
     this.end = this.month + "/" + moment(this.month).daysInMonth();
@@ -76,13 +76,13 @@ export class ExportComponent implements OnInit {
 
   logStartDate($event: any){
     this.startDate = moment($event).format('YYYY-MM-DD');
-    console.log(this.startDate);
+    // console.log(this.startDate);
   }
 
   getItem(){
     this.data2$ = this.datasvc.ExportItem();
     this.data2$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
       this.itemList = x;
     })
 
@@ -91,7 +91,7 @@ export class ExportComponent implements OnInit {
   }
 
   getData(){
-    console.log(this.itemList[this.selected2]);
+    // console.log(this.itemList[this.selected2]);
     this.downloadItem = this.itemList[this.selected2];
     // console.log(this.downloadItem);
   }
@@ -102,12 +102,12 @@ export class ExportComponent implements OnInit {
       "startTime": this.start,
       "endTime": this.end
     };
-    console.log(body);
+    // console.log(body);
     var option = { responseType: "blob" as "json" };
 
 
     this.reportName = this.deviceName + this.downloadItem + "_" + this.month + ".xlsx";
-    console.log(this.reportName);
+    // console.log(this.reportName);
 
 
     this.data4$ = this.datasvc.ExportDownload(this.setItem,this.downloadItem,body,option);

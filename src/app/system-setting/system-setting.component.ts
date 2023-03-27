@@ -92,8 +92,8 @@ export class SystemSettingComponent implements OnInit {
   constructor(public datasvc: DataService) {
     this.data$ = datasvc.SystemSettingData();
     this.data$.subscribe((x)=>{
-      console.log(x);
-      console.log(x[0].set);
+      // console.log(x);
+      // console.log(x[0].set);
       this.manufacturer = x[0].set.manufacturer;
       this.modelNo = x[0].set.modelNo;
       this.type = x[0].set.type;
@@ -123,13 +123,13 @@ export class SystemSettingComponent implements OnInit {
       this.pumpRatedHP = x[0].set.pumpRatedHP;
       this.pumpRatedAmp = x[0].set.pumpRatedAmp;
 
-      console.log(x[0].solar);
-      console.log(Object.keys(x[0].solar[0]));
+      // console.log(x[0].solar);
+      // console.log(Object.keys(x[0].solar[0]));
 
       this.displayedColumns2 = ['startTime','endTime','seasonStatus'];
       this.columnsToDisplay2 = ['startTime','endTime','seasonStatus'];
       this.dataSource2 = x[0].solar;
-      console.log(this.dataSource2);
+      // console.log(this.dataSource2);
 
       this.fanOff = x[0].set.fanOff;
       this.fanLowest = x[0].set.fanLowest;
@@ -157,7 +157,7 @@ export class SystemSettingComponent implements OnInit {
       this.startTimeList = x[0].solar.map((item: { startTime: any; }) => item.startTime);
       this.endTimeList = x[0].solar.map((item: { endTime: any; }) => item.endTime);
       // this.seasonStatusList = x[0].solar.map((item: { seasonStatus: any; }) => item.seasonStatus);
-      console.log(this.startTimeList);
+      // console.log(this.startTimeList);
     })
   }
 
@@ -226,13 +226,13 @@ export class SystemSettingComponent implements OnInit {
     var inputs = document.querySelectorAll('input');
     var seasonStatusList: any[] = [];
     Array.from(inputs).slice(36, 48).forEach((input) => {
-      console.log(input.value);
+      // console.log(input.value);
       seasonStatusList.push(input.value);
 
       // const numArr = seasonStatusList.map(str => parseInt(str));
       // console.log(numArr);
     });
-    console.log(seasonStatusList);
+    // console.log(seasonStatusList);
 
     var solarBody = [
       {
@@ -325,17 +325,17 @@ export class SystemSettingComponent implements OnInit {
 
     this.data2$ = this.datasvc.SystemSettingPa(setBody);
     this.data2$.subscribe((x)=>{
-      console.log(x);   //這邊解析後回傳的是text,所以service那邊要給回傳型態,不然無法解析
+      // console.log(x);   //這邊解析後回傳的是text,所以service那邊要給回傳型態,不然無法解析
       this.setResponse = x;
     })
 
     this.data3$ = this.datasvc.SystemSettingSunangle(solarBody);
     this.data3$.subscribe((x)=>{
-      console.log(x);   //同上
+      // console.log(x);   //同上
       this.solarResponse = x;
     })
-    console.log(setBody);
-    console.log(solarBody);
+    // console.log(setBody);
+    // console.log(solarBody);
     if(this.setResponse = ".Pa Set updata succeeded" && (this.solarResponse = ".Pa Solar updata succeeded")){
       alert("uploaded successfully!")
     }

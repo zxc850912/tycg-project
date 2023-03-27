@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
 
     //this.data$ = this.datasvc.InformationData();
     this.data$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
 
       // this.displayedColumns = (Object.keys(x.titleNums[0].titles[0]));
       // console.log(Object.keys(x.titleNums[0].titles[0]));
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
       // this.dataSource = x.titleNums[0].titles;
 
       // this.deviceName = x.titleNums[0].titles[0].set_No;
-      console.log(x.titleNums);
+      // console.log(x.titleNums);
       this.deviceList = x.titleNums;
     })
   }

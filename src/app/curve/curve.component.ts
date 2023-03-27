@@ -61,9 +61,9 @@ export class CurveComponent implements OnInit {
   constructor(public datasvc: DataService) {
     this.data5$ = datasvc.CurveGuid();
     this.data5$.subscribe((x)=>{
-      console.log(x[0].guid);
+      // console.log(x[0].guid);
       this.deviceData = x;
-      console.log(this.deviceData[0].name);
+      // console.log(this.deviceData[0].name);
       this.titleItem = this.deviceData[0].name;
       // this.setItem = x[0].guid;
     })
@@ -230,13 +230,13 @@ export class CurveComponent implements OnInit {
 
     this.data$ = this.datasvc.CurveItem();
     this.data$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
       this.chartData = x;
     })
 
     this.data4$ = this.datasvc.CurveScatterItem();
     this.data4$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
       this.scatterData = x;
     })
 
@@ -244,7 +244,7 @@ export class CurveComponent implements OnInit {
 
   logStartDate($event: any){
     this.startDate = moment($event).format('YYYY-MM-DD');
-    console.log(this.startDate);
+    // console.log(this.startDate);
   }
 
   // logStartTime($event: any){
@@ -254,13 +254,13 @@ export class CurveComponent implements OnInit {
   // }
 
   logStartTime(){
-    console.log(this.startTime);
+    // console.log(this.startTime);
   }
 
 
   logEndDate($event: any){
     this.endDate = moment($event).format('YYYY-MM-DD');
-    console.log(this.endDate);
+    // console.log(this.endDate);
   }
 
   // logEndTime($event: any){
@@ -269,12 +269,12 @@ export class CurveComponent implements OnInit {
   //   console.log(this.endTime);
   // }
   logEndTime(){
-    console.log(this.endTime);
+    // console.log(this.endTime);
   }
 
   getData(){
     this.data2$ = this.chartData[this.selected1];
-    console.log(this.data2$);
+    // console.log(this.data2$);
     this.item = this.data2$;
   }
 
@@ -282,23 +282,23 @@ export class CurveComponent implements OnInit {
     this.data6$ = this.datasvc.CurveGuid();
     this.data6$.subscribe((x)=>{
       this.itemName = x[this.selected5].name;
-      console.log(this.itemName);
+      // console.log(this.itemName);
     })
   }
 
   getName(){
     this.targetName = this.scatterData[this.selected2];
-    console.log(this.targetName);
+    // console.log(this.targetName);
   }
 
   getXaxis(){
     this.Xaxis = this.scatterData[this.selected3];
-    console.log(this.Xaxis);
+    // console.log(this.Xaxis);
   }
 
   getYaxis(){
     this.Yaxis = this.scatterData[this.selected4];
-    console.log(this.Yaxis);
+    // console.log(this.Yaxis);
   }
 
   toggleXAxisLabel() {
@@ -341,7 +341,7 @@ export class CurveComponent implements OnInit {
     this.data3$.subscribe((x)=>{
       // console.log(x);
       // console.log(x.xAxis);
-      console.log(x.series);
+      // console.log(x.series);
 
 
       const series = x.series.map((item: { name: string; }) => {
@@ -502,7 +502,7 @@ export class CurveComponent implements OnInit {
     }
     this.data3$ = this.datasvc.CurveScatterChart(this.setItem,this.targetName,this.maxValue,this.minValue,this.Xaxis,this.Yaxis,body);
     this.data3$.subscribe((x)=>{
-      console.log(x);
+      // console.log(x);
 
       this.option2 = {
         title: {
