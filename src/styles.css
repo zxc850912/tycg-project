@@ -3,8 +3,23 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+/* 隱藏 Y 軸滾動條 */
 ::-webkit-scrollbar {
-  display: none; /* Chrome Safari 隱藏滾輪*/
+  width: 0px;
+  background-color: transparent;
+}
+
+/* 保留 X 軸滾動條 */
+::-webkit-scrollbar-x {
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+}
+
+/* 客製化 X 軸滾動條樣式 */
+::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 15px;
 }
 
 body{
@@ -20,4 +35,5 @@ body{
 /* .custom-form-field .mat-select-value {
   color: #fff;
 } */
+
 

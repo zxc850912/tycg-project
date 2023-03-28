@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 
@@ -87,6 +87,8 @@ export class SystemSettingComponent implements OnInit {
 
   setResponse: any;
   solarResponse: any;
+
+  @ViewChild('saveBtn') saveBtn!:ElementRef;
 
 
   constructor(public datasvc: DataService) {
@@ -337,8 +339,13 @@ export class SystemSettingComponent implements OnInit {
     // console.log(setBody);
     // console.log(solarBody);
     if(this.setResponse = ".Pa Set updata succeeded" && (this.solarResponse = ".Pa Solar updata succeeded")){
-      alert("uploaded successfully!")
+      alert("uploaded successfully!");
     }
+  }
+
+
+  top(): void{
+    this.saveBtn.nativeElement.scrollIntoView({behavior:'smooth',block:'start',inline:'start'});
   }
 
 

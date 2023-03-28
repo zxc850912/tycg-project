@@ -13,6 +13,7 @@ import { EmsComponent } from './ems/ems.component';
 import { ReportComponent } from './report/report.component';
 import { SystemSettingComponent } from './system-setting/system-setting.component';
 import { ExportComponent } from './export/export.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -28,56 +29,57 @@ const routes: Routes = [
   {
     path: 'Home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'SystemScope',
         component: SystemScopeComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'Signal',
         component: SignalComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'DAU',
         component: DAUComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'Curve',
         component: CurveComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'EMS',
         component: EmsComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'Report',
         component: ReportComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'GraphicalSymbols',
         component: GraphicalSymbolsComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'SystemSetting',
         component: SystemSettingComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'Export',
         component: ExportComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'AdvanceData',
         component: AdvanceDataComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'testarea',

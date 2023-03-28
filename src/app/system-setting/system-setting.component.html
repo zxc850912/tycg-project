@@ -1,5 +1,8 @@
-<br>
-<button (click)="sendData()" style="font-weight:bold;" id="saveBtn">Save</button>
+<br #saveBtn>
+<!-- <button mat-button class="saveBtn" (click)="sendData()" style="font-weight:bold;"></button> -->
+<mat-icon class="saveIcon" aria-hidden="false" aria-label="Example home icon" fontIcon="save" (click)="sendData()">
+  <h2>save</h2>
+</mat-icon>
 <br><br>
 
 <div class="total-container">
@@ -417,4 +420,6 @@
 
 </div>
 
-
+<button class="topBtn" (click)="top()">
+  <mat-icon class="topIcon" aria-hidden="false" aria-label="Example home icon" fontIcon="keyboard_double_arrow_up"></mat-icon>
+</button>

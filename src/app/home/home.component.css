@@ -132,17 +132,13 @@ mat-sidenav {
   margin: 16px;
   margin-left: 32px;
   padding: 16px;
-  overflow: auto;
 
   /*改為hidden可消除滾輪*/
   overflow: auto;
-  /*將橫向多出的內容刪減*/
-  overflow-x: hidden;
+  /*將x軸滾輪顯示*/
+  overflow-x: scroll;
 }
 
-::-webkit-scrollbar {
-  display: none; /* Chrome Safari 隱藏滾輪*/
-}
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
@@ -158,7 +154,7 @@ mat-sidenav-container {
 }
 
 .menu-button:hover{
-  transform: translateX(-5px) scale(1.1);
+  transform: translateX(-5px) scale(1.06);
   transition: all 0.6s;
 }
 

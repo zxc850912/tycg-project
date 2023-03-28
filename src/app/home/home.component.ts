@@ -6,6 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import * as moment from 'moment';
 import { concat, delay, filter, interval, map, mergeMap, Observable, share } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
 
 
@@ -70,7 +71,7 @@ export class HomeComponent implements OnInit {
   sidenav!: MatSidenav;
 
 
-  constructor(private observer: BreakpointObserver, private router: Router,public datasvc: DataService) {
+  constructor(private observer: BreakpointObserver, private router: Router,public datasvc: DataService,private authService: AuthService) {
     setInterval(() => {
       this.time = moment().format('YYYY-MM-DD HH:mm:ss');
     }, 1);
@@ -137,6 +138,7 @@ export class HomeComponent implements OnInit {
 
 
   logout(){
+    this.authService.logout();
     this.router.navigateByUrl('/Login');
   }
 
