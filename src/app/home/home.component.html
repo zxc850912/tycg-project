@@ -22,6 +22,7 @@
       <div class="box3-2">auk.ai</div>
     </div>
   </div>
+
   <br>
 
   <mat-accordion multi *ngFor="let item of deviceList">
@@ -179,6 +180,14 @@
 
   <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <mat-form-field appearance="outline">
+        <mat-select [(value)]="selected1" (selectionChange)="changeCase()">
+          <mat-option *ngFor="let item of caseList; let i=index" [value]="i">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <button mat-button class="menu-button" routerLink="/Home/SystemScope" (click)="onButtonClick('System Scope')" routerLinkActive="menu-button-select">
         <span>System Scope</span>
       </button>
@@ -213,7 +222,7 @@
       <!-- <button mat-button class="menu-button" routerLink="/AdvanceData">
         <span>Advance data</span>
       </button> -->
-      <div class="bottn-container">
+      <div class="bottom-container">
         <button mat-button class="logout-button" matTooltip="Are you sure you want to log out?" matTooltipPosition="above" (click)="logout()">
           <span>Logout</span>
         </button>
@@ -228,6 +237,3 @@
 
   </mat-sidenav-container>
 </div>
-
-
-

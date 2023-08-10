@@ -1,12 +1,13 @@
-html {
+/* html {
   height: 100%;
 }
+
 body {
   margin:0;
   padding:0;
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);
-}
+} */
 
 .login-box {
   position: absolute;
@@ -14,7 +15,7 @@ body {
   left: 50%;
   width: 400px;
   padding: 40px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1.5);
   background: rgba(0,0,0,.5);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0,0,0,.6);
@@ -54,9 +55,19 @@ body {
   transition: .5s;
 }
 
-.login-box .user-box input:focus ~ label,
+/* .login-box .user-box input:focus ~ label,
 .login-box .user-box input:valid ~ label {
   top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+} */
+
+/*加入使label一開始就在上方而不會擋到紀錄帳密*/
+.user-box input:focus ~ label,
+.user-box input:valid ~ label,
+.user-box input:not(:placeholder-shown) ~ label {
+  top: -30px;
   left: 0;
   color: #03e9f4;
   font-size: 12px;

@@ -10,7 +10,9 @@
 <!--加入[@fadeInOut]="tabGroupAnimation" animationDuration="0s"產生淡入淡出動畫-->
 <mat-tab-group [@fadeInOut]="tabGroupAnimation" animationDuration="0s">
   <mat-tab label = {{item.name}} *ngFor="let item of dataList;let i=index">
+
     <br><br><br>
+
     <div class="table-container">
       <table border="1">
         <th class="title" colspan="6">{{item.setDatas[i].name}}</th>
@@ -21,6 +23,16 @@
         <tr>
           <td class="light-background">inlet_Air_WB</td><td class="dark-background"> {{item.setDatas[i].inlet_Air_WB}} </td><td class="dark-background">°C</td>
           <td class="light-background">Approach Temp.</td><td class="dark-background"> {{item.setDatas[i].approach}} </td><td class="dark-background">°C</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="wind-container">
+      <table border="1">
+        <tr>
+          <td class="light-background">wind</td><td class="dark-background">{{item.setDatas[i].wind8}}</td>
+          <td class="light-background">windSpeed</td><td class="dark-background">{{item.setDatas[i].windSpeed}}</td>
+          <td class="light-background">illumination</td><td class="dark-background">{{item.setDatas[i].illumination}}</td>
         </tr>
       </table>
     </div>

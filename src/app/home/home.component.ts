@@ -5,7 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import * as moment from 'moment';
-import { concat, delay, filter, interval, map, mergeMap, Observable, share } from 'rxjs';
+import { combineLatest, concat, delay, filter, interval, map, mergeMap, Observable, share, Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
 
@@ -54,13 +54,18 @@ export interface PeriodicElement{
 })
 export class HomeComponent implements OnInit {
 
+  caseList: any;
+
+  selected1: any;
+
   tabGroupAnimation: string = 'fadeInOut';
-  pageTitle = 'System scope';
+  pageTitle = 'System Scope';
   time: any;
   deviceList: any;
   deviceName: any;
 
   data$ = new Observable<any>();
+  data2$ = new Observable<any>();
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
@@ -70,8 +75,13 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
+  private dataSubscription: Subscription | undefined;
 
-  constructor(private observer: BreakpointObserver, private router: Router,public datasvc: DataService,private authService: AuthService) {
+  constructor(private observer: BreakpointObserver, private router: Router, public datasvc: DataService,private authService: AuthService) {
+
+  }
+
+  ngOnInit(): void {
     setInterval(() => {
       this.time = moment().format('YYYY-MM-DD HH:mm:ss');
     }, 1);
@@ -83,25 +93,9 @@ export class HomeComponent implements OnInit {
     );
     this.data$ = concat(manualCall$, periodicCall$);
 
-    //this.data$ = this.datasvc.InformationData();
     this.data$.subscribe((x)=>{
-      // console.log(x);
-
-      // this.displayedColumns = (Object.keys(x.titleNums[0].titles[0]));
-      // console.log(Object.keys(x.titleNums[0].titles[0]));
-
-      // var obj = (x.titleNums[0].titles[0]);
-      // delete obj[Object.keys(obj)[0]];
-      // console.log(obj);
-      // this.displayedColumns = (Object.keys(obj));
-      // console.log(this.displayedColumns);
-
       this.displayedColumns = x.titleName;
       this.columnsToDisplay = x.titleName;
-      // this.dataSource = x.titleNums[0].titles;
-
-      // this.deviceName = x.titleNums[0].titles[0].set_No;
-      // console.log(x.titleNums);
       this.deviceList = x.titleNums;
     })
   }
@@ -132,8 +126,20 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  ngOnDestroy(): void {
+    // 在組件銷毀時取消訂閱
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+  }
+
+  changeCase(){
+
+  }
+
   onButtonClick(buttonText: string) {
     this.pageTitle = buttonText; // 更新 sidebarSelect 變量
+    localStorage.setItem('lastSelectedButton', buttonText);
   }
 
 
@@ -141,10 +147,4 @@ export class HomeComponent implements OnInit {
     this.authService.logout();
     this.router.navigateByUrl('/Login');
   }
-
-  ngOnInit(): void {
-
-  }
-
-
 }

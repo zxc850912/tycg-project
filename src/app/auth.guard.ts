@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   //   return true;
   // }
 
-  constructor(private authService: AuthService,private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
      // 檢查使用者是否已經登入

@@ -1,31 +1,52 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
+  tokenUrl = 'https://tycg-mas-system.azurewebsites.net/';
   apiUrl = 'https://tycg-mas-system.azurewebsites.net/api/';
+
+  public caseList: any;
 
   constructor(private http: HttpClient) {
 
   }
 
+  token(x: any){      //輸入帳密要token
+    return this.http.post(this.tokenUrl + 'login',
+      x
+    );
+  }
+
+  setCaseList(caseList: any){    // 儲存所有caseRoleKey
+    this.caseList = caseList;
+  }
+
+  getCaseList(): any {   // 拿出所有caseRoleKey
+    return this.caseList;
+  }
+
+
   InformationData(){    //常駐表格資訊
-    return this.http.get(this.apiUrl + 'get-main-title');
+    // return this.http.get(this.apiUrl + 'get-main-title');
+    return this.http.get(this.apiUrl + 'get-main-title' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
   }
 
   SystemScope(){        //SystemScope頁面資訊
-    return this.http.get(this.apiUrl + 'get-system-scope');
+    return this.http.get(this.apiUrl + 'get-system-scope' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
   }
 
   Signal(){             //Signal頁面資訊
-    return this.http.get(this.apiUrl + 'get-signal');
+    return this.http.get(this.apiUrl + 'get-signal' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
   }
 
   DAU(){             //DAU頁面資訊
-    return this.http.get(this.apiUrl + 'get-dau');
+    // return this.http.get(this.apiUrl + 'get-dau');
+    return this.http.get(this.apiUrl + 'get-dau' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
   }
 
   CurveItem(){             //Curve圖表項目
@@ -67,7 +88,7 @@ export class DataService {
   }
 
   SystemSettingData(){
-    return this.http.get(this.apiUrl + 'get-system.pa')
+    return this.http.get(this.apiUrl + 'get-system.pa' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864')
   }
 
   SystemSettingPa(x: any){

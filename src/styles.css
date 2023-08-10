@@ -31,6 +31,25 @@ body{
   margin: 0;
 }
 
+.mat-form-field-wrapper{
+  padding-bottom: 0;
+}
+
+/*改變框內的padding,目前找不到框內文字置中方法,暫時用padding處理*/
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0px 0px 10px 0px;
+}
+
+/*由於改變表格設定,所以這邊將表格內icon置中*/
+.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+  transform: none !important;
+}
+
+/*改變input內字體*/
+input.mat-input-element{
+  font-size: 20px;
+}
+
 /* 將文字顏色設為白色 */
 /* .custom-form-field .mat-select-value {
   color: #fff;

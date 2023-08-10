@@ -103,6 +103,8 @@ export class SystemScopeComponent implements OnInit {
       // this.cell_2 = x.setDatas[0].cellDatas[1].name;
       // this.inlet_Air_WB1 = x.setDatas[0].cellDatas[0].inlet_Air_WB;
       // this.inlet_Air_WB2 = x.setDatas[0].cellDatas[1].inlet_Air_WB;
+
+
     })
   }
 

@@ -15,11 +15,14 @@ export interface PeriodicElement {
 })
 export class DAUComponent implements OnInit {
 
+  caseRoleKey: any;
+
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
   dataSource: PeriodicElement[] = [];
 
   data$ = new Observable<any>();
+  data2$ = new Observable<any>();
 
   title!: string;
 
@@ -30,10 +33,10 @@ export class DAUComponent implements OnInit {
       mergeMap(() => this.datasvc.DAU()),
       share()
     );
-    this.data$ = concat(manualCall$, periodicCall$);
+    this.data2$ = concat(manualCall$, periodicCall$);
 
     //this.data$ = this.datasvc.DAU();
-    this.data$.subscribe((x)=>{
+    this.data2$.subscribe((x)=>{
       // console.log(x);
       this.title = x[0].name;
       this.displayedColumns = x[0].signalName;

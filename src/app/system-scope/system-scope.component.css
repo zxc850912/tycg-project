@@ -20,7 +20,6 @@ mat-form-field{
   height: 60px;
 }
 
-
 .table-container{
   display: flex;
   justify-content: center;
@@ -29,6 +28,12 @@ mat-form-field{
 .title{
   background: #025ca6;
   color: #fff;
+}
+
+.wind-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
