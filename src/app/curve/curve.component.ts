@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ThemeOption } from 'ngx-echarts';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { DataService } from '../data.service';
 
 @Component({
@@ -10,6 +10,8 @@ import { DataService } from '../data.service';
   styleUrls: ['./curve.component.css']
 })
 export class CurveComponent implements OnInit {
+
+  caseRoleKeyList: any;
 
   option1: any;
   showXAxisLabel = true;
@@ -36,7 +38,7 @@ export class CurveComponent implements OnInit {
   selected2 = '';
   selected3 = '';
   selected4 = '';
-  selected5 = '';
+  // selected5 = '';
 
   chartData: any;
   scatterData: any;
@@ -55,12 +57,30 @@ export class CurveComponent implements OnInit {
 
   showSpinner = false;
 
-
   // theme = 'dark';
 
   constructor(public datasvc: DataService) {
-    this.data5$ = datasvc.CurveGuid();
+
+  }
+
+  ngOnInit(): void {
+    this.data$ = this.datasvc.getSelected();
+    this.data$.subscribe((x)=>{
+      console.log(x);
+      this.selected1 = x;
+    })
+
+    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+    this.data2$.subscribe((x)=>{
+      console.log(x);
+      this.caseRoleKeyList = x;
+
+      this.setItem = this.caseRoleKeyList[this.selected1];
+    })
+
+    this.data5$ = this.datasvc.CurveGuid();
     this.data5$.subscribe((x)=>{
+      console.log(x);
       // console.log(x[0].guid);
       this.deviceData = x;
       // console.log(this.deviceData[0].name);
@@ -69,12 +89,13 @@ export class CurveComponent implements OnInit {
     })
 
     this.item = 'Tower Operating';
-    this.setItem = "5cbd1b8c-8eea-414f-bf9e-f981e9927864"
+    // this.setItem = "5cbd1b8c-8eea-414f-bf9e-f981e9927864"
 
     var body = {
       "startTime": this.startDate + ' ' + this.startTime,
       "endTime": this.endDate + ' ' + this.endTime
     }
+
     this.data3$ = this.datasvc.CurveLineChart(this.item,this.setItem,body);
     this.data3$.subscribe((x)=>{
       // console.log(x);
@@ -239,7 +260,6 @@ export class CurveComponent implements OnInit {
       // console.log(x);
       this.scatterData = x;
     })
-
   }
 
   logStartDate($event: any){
@@ -278,13 +298,13 @@ export class CurveComponent implements OnInit {
     this.item = this.data2$;
   }
 
-  getGuid(){
-    this.data6$ = this.datasvc.CurveGuid();
-    this.data6$.subscribe((x)=>{
-      this.itemName = x[this.selected5].name;
-      // console.log(this.itemName);
-    })
-  }
+  // getGuid(){
+  //   this.data6$ = this.datasvc.CurveGuid();
+  //   this.data6$.subscribe((x)=>{
+  //     this.itemName = x[this.selected5].name;
+  //     // console.log(this.itemName);
+  //   })
+  // }
 
   getName(){
     this.targetName = this.scatterData[this.selected2];
@@ -545,11 +565,6 @@ export class CurveComponent implements OnInit {
       };
       this.showSpinner = false;
     })
-  }
-
-
-  ngOnInit(): void {
-
   }
 
 }

@@ -14,16 +14,14 @@
   font-size: 2em;
 } */
 
-mat-form-field{
-  /* background: #015ca8; */
+/* mat-form-field{
   background: #fff;
-  /* color: #fff; */
   color: #000;
   border-radius: 15px;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   height: 50px;
   margin: 20px 10px;
-}
+} */
 
 .timePicker{
   width: 180px;

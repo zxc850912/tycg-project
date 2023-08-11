@@ -183,7 +183,7 @@
       <mat-form-field appearance="outline">
         <mat-select [(value)]="selected1" (selectionChange)="changeCase()">
           <mat-option *ngFor="let item of caseList; let i=index" [value]="i">
-            {{item.name}}
+            {{item}}
           </mat-option>
         </mat-select>
       </mat-form-field>

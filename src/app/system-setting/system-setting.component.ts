@@ -1,5 +1,5 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, timer } from 'rxjs';
 import { DataService } from '../data.service';
 
 
@@ -17,6 +17,10 @@ export interface PeriodicElement2 {
 export class SystemSettingComponent implements OnInit {
 
   showSpinner = false;
+
+  selected1: any;
+  caseRoleKeyList: any;
+
   //system pa.
   manufacturer: any;
   modelNo: any;
@@ -90,79 +94,163 @@ export class SystemSettingComponent implements OnInit {
 
   @ViewChild('saveBtn') saveBtn!:ElementRef;
 
-
   constructor(public datasvc: DataService) {
-    this.data$ = datasvc.SystemSettingData();
+
+  }
+
+  ngOnInit(): void {
+    this.data$ = this.datasvc.getSelected();
     this.data$.subscribe((x)=>{
-      // console.log(x);
-      // console.log(x[0].set);
-      this.manufacturer = x[0].set.manufacturer;
-      this.modelNo = x[0].set.modelNo;
-      this.type = x[0].set.type;
-      this.totalWaterFlowrate = x[0].set.totalWaterFlowrate;
-      this.waterFlowRateCell = x[0].set.waterFlowRateCell;
-      this.hotWaterTemp = x[0].set.hotWaterTemp;
-      this.coldWaterTemp = x[0].set.coldWaterTemp;
-      this.ambWetbulbTemp = x[0].set.ambWetbulbTemp;
-      this.evaporationLoss = x[0].set.evaporationLoss;
-      this.dirftLoss = x[0].set.dirftLoss;
-      this.noOfCell = x[0].set.noOfCell;
-      this.noOfFanCell = x[0].set.noOfFanCell;
-      this.totalNoOfFan = x[0].set.totalNoOfFan;
-      this.airVolumePerFan = x[0].set.airVolumePerFan;
-      this.noCell = x[0].set.noCell;
-      this.motorPowerSourcePhase = x[0].set.motorPowerSourcePhase;
-      this.motorPowerSourceHz = x[0].set.motorPowerSourceHz;
-      this.motorPowerSourceVolt = x[0].set.motorPowerSourceVolt;
-      this.motorNumberOfMotorPoles = x[0].set.motorNumberOfMotorPoles;
-      this.motorRatedHP = x[0].set.motorRatedHP;
-      this.motorRatedPower = x[0].set.motorRatedPower;
-      this.motorRatedAmp = x[0].set.motorRatedAmp;
-      this.pumpPowerSourcePhase = x[0].set.pumpPowerSourcePhase;
-      this.pumpPowerSourceHz = x[0].set.pumpPowerSourceHz;
-      this.pumpPowerSourceVolt = x[0].set.pumpPowerSourceVolt;
-      this.pumpNumberOfMotorPoles = x[0].set.pumpNumberOfMotorPoles;
-      this.pumpRatedHP = x[0].set.pumpRatedHP;
-      this.pumpRatedAmp = x[0].set.pumpRatedAmp;
+      console.log(x);
+      this.selected1 = x;
+    })
+
+    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+    this.data2$.pipe(
+      switchMap((caseRoleKeyList) => {
+        this.caseRoleKeyList = caseRoleKeyList;
+
+        // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
+        return timer(0, 60000).pipe(
+          switchMap(() => this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]))
+        );
+      })
+    ).subscribe((x:any) => {
+      console.log(x);
+      this.manufacturer = x.set.manufacturer;
+      this.modelNo = x.set.modelNo;
+      this.type = x.set.type;
+      this.totalWaterFlowrate = x.set.totalWaterFlowrate;
+      this.waterFlowRateCell = x.set.waterFlowRateCell;
+      this.hotWaterTemp = x.set.hotWaterTemp;
+      this.coldWaterTemp = x.set.coldWaterTemp;
+      this.ambWetbulbTemp = x.set.ambWetbulbTemp;
+      this.evaporationLoss = x.set.evaporationLoss;
+      this.dirftLoss = x.set.dirftLoss;
+      this.noOfCell = x.set.noOfCell;
+      this.noOfFanCell = x.set.noOfFanCell;
+      this.totalNoOfFan = x.set.totalNoOfFan;
+      this.airVolumePerFan = x.set.airVolumePerFan;
+      this.noCell = x.set.noCell;
+      this.motorPowerSourcePhase = x.set.motorPowerSourcePhase;
+      this.motorPowerSourceHz = x.set.motorPowerSourceHz;
+      this.motorPowerSourceVolt = x.set.motorPowerSourceVolt;
+      this.motorNumberOfMotorPoles = x.set.motorNumberOfMotorPoles;
+      this.motorRatedHP = x.set.motorRatedHP;
+      this.motorRatedPower = x.set.motorRatedPower;
+      this.motorRatedAmp = x.set.motorRatedAmp;
+      this.pumpPowerSourcePhase = x.set.pumpPowerSourcePhase;
+      this.pumpPowerSourceHz = x.set.pumpPowerSourceHz;
+      this.pumpPowerSourceVolt = x.set.pumpPowerSourceVolt;
+      this.pumpNumberOfMotorPoles = x.set.pumpNumberOfMotorPoles;
+      this.pumpRatedHP = x.set.pumpRatedHP;
+      this.pumpRatedAmp = x.set.pumpRatedAmp;
 
       // console.log(x[0].solar);
       // console.log(Object.keys(x[0].solar[0]));
 
       this.displayedColumns2 = ['startTime','endTime','seasonStatus'];
       this.columnsToDisplay2 = ['startTime','endTime','seasonStatus'];
-      this.dataSource2 = x[0].solar;
+      this.dataSource2 = x.solar;
       // console.log(this.dataSource2);
 
-      this.fanOff = x[0].set.fanOff;
-      this.fanLowest = x[0].set.fanLowest;
-      this.fanFull = x[0].set.fanFull;
-      this.fanOverLoad = x[0].set.fanOverLoad;
-      this.pumpOff = x[0].set.pumpOff;
-      this.pumpLowest = x[0].set.pumpLowest;
-      this.pumpFull = x[0].set.pumpFull;
-      this.pumpOverLoad = x[0].set.pumpOverLoad;
+      this.fanOff = x.set.fanOff;
+      this.fanLowest = x.set.fanLowest;
+      this.fanFull = x.set.fanFull;
+      this.fanOverLoad = x.set.fanOverLoad;
+      this.pumpOff = x.set.pumpOff;
+      this.pumpLowest = x.set.pumpLowest;
+      this.pumpFull = x.set.pumpFull;
+      this.pumpOverLoad = x.set.pumpOverLoad;
 
-      this.sensorTempLowest = x[0].set.sensorTempLowest;
-      this.sensorTempHightest = x[0].set.sensorTempHightest;
-      this.sensorRhLowest = x[0].set.sensorRhLowest;
-      this.sensorRhHightest = x[0].set.sensorRhHightest;
+      this.sensorTempLowest = x.set.sensorTempLowest;
+      this.sensorTempHightest = x.set.sensorTempHightest;
+      this.sensorRhLowest = x.set.sensorRhLowest;
+      this.sensorRhHightest = x.set.sensorRhHightest;
 
-      this.btu_btuHwtLowest = x[0].set.btuHwtLowest;
-      this.btu_btuHwtHightest = x[0].set.btuHwtHightest;
-      this.btu_btuHwtOver = x[0].set.btuHwtOver;
-      this.btu_btuCwtLowest = x[0].set.btuCwtLowest;
-      this.btu_btuCwtHightest = x[0].set.btuCwtHightest;
-      this.btu_btuCwtOver = x[0].set.btuCwtOver;
-      this.btu_btuFlowOff = x[0].set.btuFlowOff;
-      this.btu_btuFlowOn = x[0].set.btuFlowOn;
+      this.btu_btuHwtLowest = x.set.btuHwtLowest;
+      this.btu_btuHwtHightest = x.set.btuHwtHightest;
+      this.btu_btuHwtOver = x.set.btuHwtOver;
+      this.btu_btuCwtLowest = x.set.btuCwtLowest;
+      this.btu_btuCwtHightest = x.set.btuCwtHightest;
+      this.btu_btuCwtOver = x.set.btuCwtOver;
+      this.btu_btuFlowOff = x.set.btuFlowOff;
+      this.btu_btuFlowOn = x.set.btuFlowOn;
 
-      this.startTimeList = x[0].solar.map((item: { startTime: any; }) => item.startTime);
-      this.endTimeList = x[0].solar.map((item: { endTime: any; }) => item.endTime);
-      // this.seasonStatusList = x[0].solar.map((item: { seasonStatus: any; }) => item.seasonStatus);
-      // console.log(this.startTimeList);
-    })
+      this.startTimeList = x.solar.map((item: { startTime: any; }) => item.startTime);
+      this.endTimeList = x.solar.map((item: { endTime: any; }) => item.endTime);
+    });
+
+    // this.data$ = this.datasvc.SystemSettingData();
+    // this.data$.subscribe((x)=>{
+    //   // console.log(x);
+    //   // console.log(x[0].set);
+    //   this.manufacturer = x[0].set.manufacturer;
+    //   this.modelNo = x[0].set.modelNo;
+    //   this.type = x[0].set.type;
+    //   this.totalWaterFlowrate = x[0].set.totalWaterFlowrate;
+    //   this.waterFlowRateCell = x[0].set.waterFlowRateCell;
+    //   this.hotWaterTemp = x[0].set.hotWaterTemp;
+    //   this.coldWaterTemp = x[0].set.coldWaterTemp;
+    //   this.ambWetbulbTemp = x[0].set.ambWetbulbTemp;
+    //   this.evaporationLoss = x[0].set.evaporationLoss;
+    //   this.dirftLoss = x[0].set.dirftLoss;
+    //   this.noOfCell = x[0].set.noOfCell;
+    //   this.noOfFanCell = x[0].set.noOfFanCell;
+    //   this.totalNoOfFan = x[0].set.totalNoOfFan;
+    //   this.airVolumePerFan = x[0].set.airVolumePerFan;
+    //   this.noCell = x[0].set.noCell;
+    //   this.motorPowerSourcePhase = x[0].set.motorPowerSourcePhase;
+    //   this.motorPowerSourceHz = x[0].set.motorPowerSourceHz;
+    //   this.motorPowerSourceVolt = x[0].set.motorPowerSourceVolt;
+    //   this.motorNumberOfMotorPoles = x[0].set.motorNumberOfMotorPoles;
+    //   this.motorRatedHP = x[0].set.motorRatedHP;
+    //   this.motorRatedPower = x[0].set.motorRatedPower;
+    //   this.motorRatedAmp = x[0].set.motorRatedAmp;
+    //   this.pumpPowerSourcePhase = x[0].set.pumpPowerSourcePhase;
+    //   this.pumpPowerSourceHz = x[0].set.pumpPowerSourceHz;
+    //   this.pumpPowerSourceVolt = x[0].set.pumpPowerSourceVolt;
+    //   this.pumpNumberOfMotorPoles = x[0].set.pumpNumberOfMotorPoles;
+    //   this.pumpRatedHP = x[0].set.pumpRatedHP;
+    //   this.pumpRatedAmp = x[0].set.pumpRatedAmp;
+
+    //   // console.log(x[0].solar);
+    //   // console.log(Object.keys(x[0].solar[0]));
+
+    //   this.displayedColumns2 = ['startTime','endTime','seasonStatus'];
+    //   this.columnsToDisplay2 = ['startTime','endTime','seasonStatus'];
+    //   this.dataSource2 = x[0].solar;
+    //   // console.log(this.dataSource2);
+
+    //   this.fanOff = x[0].set.fanOff;
+    //   this.fanLowest = x[0].set.fanLowest;
+    //   this.fanFull = x[0].set.fanFull;
+    //   this.fanOverLoad = x[0].set.fanOverLoad;
+    //   this.pumpOff = x[0].set.pumpOff;
+    //   this.pumpLowest = x[0].set.pumpLowest;
+    //   this.pumpFull = x[0].set.pumpFull;
+    //   this.pumpOverLoad = x[0].set.pumpOverLoad;
+
+    //   this.sensorTempLowest = x[0].set.sensorTempLowest;
+    //   this.sensorTempHightest = x[0].set.sensorTempHightest;
+    //   this.sensorRhLowest = x[0].set.sensorRhLowest;
+    //   this.sensorRhHightest = x[0].set.sensorRhHightest;
+
+    //   this.btu_btuHwtLowest = x[0].set.btuHwtLowest;
+    //   this.btu_btuHwtHightest = x[0].set.btuHwtHightest;
+    //   this.btu_btuHwtOver = x[0].set.btuHwtOver;
+    //   this.btu_btuCwtLowest = x[0].set.btuCwtLowest;
+    //   this.btu_btuCwtHightest = x[0].set.btuCwtHightest;
+    //   this.btu_btuCwtOver = x[0].set.btuCwtOver;
+    //   this.btu_btuFlowOff = x[0].set.btuFlowOff;
+    //   this.btu_btuFlowOn = x[0].set.btuFlowOn;
+
+    //   this.startTimeList = x[0].solar.map((item: { startTime: any; }) => item.startTime);
+    //   this.endTimeList = x[0].solar.map((item: { endTime: any; }) => item.endTime);
+    //   // this.seasonStatusList = x[0].solar.map((item: { seasonStatus: any; }) => item.seasonStatus);
+    //   // console.log(this.startTimeList);
+    // })
   }
-
 
   sendData(){
     var setBody = {
@@ -347,11 +435,4 @@ export class SystemSettingComponent implements OnInit {
   top(): void{
     this.saveBtn.nativeElement.scrollIntoView({behavior:'smooth',block:'start',inline:'start'});
   }
-
-
-  ngOnInit(): void {
-
-  }
-
-
 }

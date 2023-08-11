@@ -147,9 +147,12 @@ mat-sidenav-container {
   height: calc(100vh - 65px);
 }
 
-mat-form-field{
+mat-form-field {
   width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
 }
+
 
 .menu-button {
   width: 100%;
@@ -194,12 +197,13 @@ mat-form-field{
   transition: all 0.6s;
 }
 
-.avatar {
+/* .avatar {
   margin-top: 16px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-}
+} */
+
 .name {
   margin-top: 8px;
   font-weight: normal;

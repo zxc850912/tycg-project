@@ -4,22 +4,21 @@
   <mat-datepicker #picker1 color="primary" startView="multi-year" (monthSelected)="setMonthAndYear($event, picker1)" panelClass="example-month-picker"></mat-datepicker>
 </mat-form-field>
 
-<mat-form-field appearance="outline" class="custom-form-field">
+<!-- <mat-form-field appearance="outline" class="custom-form-field">
   <mat-select [(value)]="selected1" (selectionChange)="getItem()">
     <mat-option *ngFor="let item of deviceList;let i=index" [value]="i">
       {{item.name}}
     </mat-option>
   </mat-select>
-</mat-form-field>
+</mat-form-field> -->
 
-<mat-form-field appearance="outline" class="custom-form-field">
+<mat-form-field appearance="outline" class="itemList-form-field">
   <mat-select [(value)]="selected2" (selectionChange)="getData()">
     <mat-option *ngFor="let item of itemList;let i=index" [value]="i">
       {{item}}
     </mat-option>
   </mat-select>
 </mat-form-field>
-
 
 <button mat-raised-button (click)="downLoad()">Download</button>
 

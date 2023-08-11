@@ -5,7 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import * as moment from 'moment';
-import { combineLatest, concat, delay, filter, interval, map, mergeMap, Observable, share, Subscription } from 'rxjs';
+import { combineLatest, concat, delay, filter, interval, map, mergeMap, Observable, share, startWith, Subscription, switchMap, timer } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
 
@@ -55,8 +55,9 @@ export interface PeriodicElement{
 export class HomeComponent implements OnInit {
 
   caseList: any;
+  caseRoleKeyList: any;
 
-  selected1: any;
+  selected1 = 0;
 
   tabGroupAnimation: string = 'fadeInOut';
   pageTitle = 'System Scope';
@@ -66,6 +67,7 @@ export class HomeComponent implements OnInit {
 
   data$ = new Observable<any>();
   data2$ = new Observable<any>();
+  data3$ = new Observable<any>();
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
@@ -86,18 +88,45 @@ export class HomeComponent implements OnInit {
       this.time = moment().format('YYYY-MM-DD HH:mm:ss');
     }, 1);
 
-    const manualCall$ = this.datasvc.InformationData();
-    const periodicCall$ = interval(60000).pipe(
-      mergeMap(() => this.datasvc.InformationData()),
-      share()
-    );
-    this.data$ = concat(manualCall$, periodicCall$);
+    this.datasvc.setSelected(this.selected1);
 
+    this.data$ = this.datasvc.getNameList();    //所有案場下拉選單
     this.data$.subscribe((x)=>{
+      console.log(x);
+      this.caseList = x;
+    })
+
+    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+    this.data2$.pipe(
+      switchMap((caseRoleKeyList) => {
+        this.caseRoleKeyList = caseRoleKeyList;
+
+        // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
+        return timer(0, 60000).pipe(
+          switchMap(() => this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]))
+        );
+      })
+    ).subscribe((x:any) => {
+      console.log(x);
       this.displayedColumns = x.titleName;
       this.columnsToDisplay = x.titleName;
       this.deviceList = x.titleNums;
-    })
+    });
+
+
+    // const manualCall$ = this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]);     //建立第一個觀察者物件
+    // const periodicCall$ = interval(60000).pipe(             //建立第二個觀察者物件,並每60秒執行一次
+    //   mergeMap(() => this.datasvc.InformationData(this.caseRoleKeyList[this.selected1])),
+    //   share()
+    // );
+    // this.data3$ = concat(manualCall$, periodicCall$);        //使用concat()將觀察者物件串接起來,內容會依序執行,但因為periodicCall$有計時器,所以會持續執行,manualCall$則執行完一次就停止
+
+    // this.data3$.subscribe((x)=>{                             //訂閱資料
+    //   console.log(x);
+    //   this.displayedColumns = x.titleName;
+    //   this.columnsToDisplay = x.titleName;
+    //   this.deviceList = x.titleNums;
+    // })
   }
 
   ngAfterViewInit() {
@@ -134,7 +163,8 @@ export class HomeComponent implements OnInit {
   }
 
   changeCase(){
-
+    console.log(this.caseRoleKeyList[this.selected1]);
+    this.datasvc.setSelected(this.selected1);
   }
 
   onButtonClick(buttonText: string) {

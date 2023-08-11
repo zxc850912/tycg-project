@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   data$ = new Observable<any>();
 
   caseRoleKeyList: any;
+  nameList: any;
 
   constructor(private router: Router,private authService: AuthService,public datasvc: DataService) {}
 
@@ -39,9 +40,12 @@ export class LoginComponent implements OnInit {
       this.data$.subscribe((x)=>{
         console.log(x);
         this.caseRoleKeyList = x.enableCaseFeatures.map((item: { caseRoleKey: any; }) => item.caseRoleKey);
-        // this.caseRoleKeyList = x.enableCaseFeatures[0].caseRoleKey;
         console.log(this.caseRoleKeyList);
         this.datasvc.setCaseList(this.caseRoleKeyList);
+
+        this.nameList = x.enableCaseFeatures.map((item: { name: any; }) => item.name);
+        console.log(this.nameList);
+        this.datasvc.setNameList(this.nameList);
       })
 
       this.authService.login();

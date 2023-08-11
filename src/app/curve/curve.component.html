@@ -39,13 +39,13 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="custom-form-field">
+  <!-- <mat-form-field appearance="outline" class="custom-form-field">
     <mat-select [(value)]="selected5" (selectionChange)="getGuid()" placeholder="8樓水塔">
       <mat-option *ngFor="let item of deviceData;let i=index" [value]="i">
         {{item.name}}
       </mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <span [ngSwitch]="selected1">
     <span *ngSwitchDefault>

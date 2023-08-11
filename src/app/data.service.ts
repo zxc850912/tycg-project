@@ -10,7 +10,9 @@ export class DataService {
   tokenUrl = 'https://tycg-mas-system.azurewebsites.net/';
   apiUrl = 'https://tycg-mas-system.azurewebsites.net/api/';
 
-  public caseList: any;
+  caseList$ = new BehaviorSubject<any>([]);     //建立觀察者物件才能訂閱值的變化,不然在其他元件初始要值會undefind
+  caseNameList$ = new BehaviorSubject<any>([]);
+  selected$ = new BehaviorSubject<any>('');
 
   constructor(private http: HttpClient) {
 
@@ -23,30 +25,45 @@ export class DataService {
   }
 
   setCaseList(caseList: any){    // 儲存所有caseRoleKey
-    this.caseList = caseList;
+    this.caseList$.next(caseList);
   }
 
   getCaseList(): any {   // 拿出所有caseRoleKey
-    return this.caseList;
+    return this.caseList$.asObservable();
   }
 
+  setNameList(nameList: any){    // 儲存所有name
+    this.caseNameList$.next(nameList);
+  }
 
-  InformationData(){    //常駐表格資訊
+  getNameList(): any {   // 拿出所有name
+    return this.caseNameList$.asObservable();
+  }
+
+  setSelected(selected: any){    // 儲存selected
+    this.selected$.next(selected);
+  }
+
+  getSelected(): any {   // 拿出selected
+    return this.selected$.asObservable();
+  }
+
+  InformationData(caseRoleKey: any){    //常駐表格資訊
     // return this.http.get(this.apiUrl + 'get-main-title');
-    return this.http.get(this.apiUrl + 'get-main-title' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
+    return this.http.get(this.apiUrl + 'get-main-title?setid=' + caseRoleKey);
   }
 
-  SystemScope(){        //SystemScope頁面資訊
-    return this.http.get(this.apiUrl + 'get-system-scope' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
+  SystemScope(seleted: any){        //SystemScope頁面資訊
+    return this.http.get(this.apiUrl + 'get-system-scope?setid=' + seleted);
   }
 
-  Signal(){             //Signal頁面資訊
-    return this.http.get(this.apiUrl + 'get-signal' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
+  Signal(seleted: any){             //Signal頁面資訊
+    return this.http.get(this.apiUrl + 'get-signal?setid=' + seleted);
   }
 
-  DAU(){             //DAU頁面資訊
+  DAU(seleted: any){             //DAU頁面資訊
     // return this.http.get(this.apiUrl + 'get-dau');
-    return this.http.get(this.apiUrl + 'get-dau' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864');
+    return this.http.get(this.apiUrl + 'get-dau?setid=' + seleted);
   }
 
   CurveItem(){             //Curve圖表項目
@@ -87,8 +104,8 @@ export class DataService {
     );
   }
 
-  SystemSettingData(){
-    return this.http.get(this.apiUrl + 'get-system.pa' + '?setid=5cbd1b8c-8eea-414f-bf9e-f981e9927864')
+  SystemSettingData(seleted: any){
+    return this.http.get(this.apiUrl + 'get-system.pa?setid=' + seleted)
   }
 
   SystemSettingPa(x: any){
