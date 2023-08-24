@@ -15,4 +15,7 @@
   </div>
 </div>
 
-
+<ng-container *ngIf="showSpinner">
+  <div class="overlay"></div>
+  <mat-spinner></mat-spinner>
+</ng-container>

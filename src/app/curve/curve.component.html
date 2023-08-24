@@ -7,37 +7,111 @@
 <br><br> -->
 
 <div>
-  <mat-form-field appearance="outline" class="custom-form-field">
+  <!-- <mat-form-field appearance="outline" class="custom-form-field">
     <input matInput placeholder="Start date" [matDatepicker]="picker1" [(ngModel)]="startDate" (dateInput)="logStartDate($event.value)">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
 
-  <input class="timePicker" type="time" id="appt" name="appt" min="09:00" max="18:00" (change)="logStartTime()" [(ngModel)]="startTime">
+  <input class="timePicker" type="time" id="appt" name="appt" min="09:00" max="18:00" (change)="logStartTime()" [(ngModel)]="startTime"> -->
+  <div class="field col-12 md:col-4">
+    <p-calendar [(ngModel)]="startDay" [showTime]="true" [showSeconds]="false" inputId="time" (ngModelChange)="startDate($event)" appendTo="body" (onSelect)="checkDateRange()"></p-calendar>
+    <p-calendar [(ngModel)]="endDay" [showTime]="true" [showSeconds]="false" inputId="time" (ngModelChange)="endDate($event)" appendTo="body" (onSelect)="checkDateRange()"></p-calendar>
+    <mat-form-field appearance="outline" class="custom-form-field">
+      <mat-select [(value)]="selected1" placeholder="Tower Operating" (selectionChange)="getData()">
+        <mat-option *ngFor="let item of chartData;let i=index" [value]="i">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <span [ngSwitch]="selected1">
+      <span *ngSwitchDefault>
+        <button mat-raised-button class="mainbtn" (click)="demand()">Queries</button>
+        <button class="switchbtn" (click)="toggleXAxisLabel()" [ngStyle]="{'background-color': showXAxisLabel ? 'green' : 'grey'}">{{ showXAxisLabel ? 'xAxis show' : 'xAxis hide' }}</button>
+        <button class="switchbtn" (click)="toggleTooltip()" [ngStyle]="{'background-color': showTooltip ? 'green' : 'grey'}">{{ showTooltip ? 'tip show' : 'tip hide' }}</button>
+        <br>
+        <br>
+        <!-- <div echarts [options]="option1" [theme]="theme" class="demo-chart" style="height:600px;"></div> -->
+        <div echarts [options]="option1" class="demo-chart" style="height:600px;"></div>
+      </span>
+      <div *ngSwitchCase="4">
+        <br>
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>main</mat-label>
+          <mat-select [(value)]="selected2" (selectionChange)="getName()" placeholder="target">
+            <mat-option *ngFor="let item of scatterData;let i=index" [value]="i">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field" appearance="outline" class="custom-form-field">
+          <!-- <mat-label>Clearable input</mat-label> -->
+          <mat-label>Min value</mat-label>
+          <input matInput type="text" placeholder="Min value" [(ngModel)]="minValue">
+          <button *ngIf="minValue" matSuffix mat-icon-button aria-label="Clear" (click)="minValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field" appearance="outline" class="custom-form-field">
+          <!-- <mat-label>Clearable input</mat-label> -->
+          <mat-label>Max value</mat-label>
+          <input matInput type="text" placeholder="Max value" [(ngModel)]="maxValue">
+          <button *ngIf="maxValue" matSuffix mat-icon-button aria-label="Clear" (click)="maxValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>xAxis</mat-label>
+          <mat-select [(value)]="selected3" (selectionChange)="getXaxis()" placeholder="xAxis">
+            <mat-option *ngFor="let item of scatterData;let i=index" [value]="i">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>yAxis</mat-label>
+          <mat-select [(value)]="selected4" (selectionChange)="getYaxis()" placeholder="yAxis">
+            <mat-option *ngFor="let item of scatterData;let i=index" [value]="i">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <button mat-raised-button class="mainbtn" (click)="scatterDemand()">Queries</button>
+        <br>
+        <!-- <div echarts [options]="option2" [theme]="theme" class="demo-chart" style="height:600px;"></div> -->
+        <div echarts [options]="option2" class="demo-chart" style="height:600px;"></div>
+      </div>
+      <!-- <p *ngSwitchCase="2">
+
+      </p> -->
+    </span>
+  </div>
   <!-- <mat-form-field appearance="outline" class="custom-form-field">
     <input matInput placeholder="Start time" [(ngModel)]="startTime" [ngxMatTimepicker]="picker2" (ngModelChange)="logStartTime($event)" [format]="24">
     <ngx-mat-timepicker #picker2></ngx-mat-timepicker>
   </mat-form-field> -->
 
-  <mat-form-field appearance="outline" class="custom-form-field">
+  <!-- <mat-form-field appearance="outline" class="custom-form-field">
     <input matInput placeholder="End date" [(ngModel)]="endDate" [matDatepicker]="picker3" (dateInput)="logEndDate($event.value)">
     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
     <mat-datepicker #picker3></mat-datepicker>
   </mat-form-field>
 
-  <input class="timePicker" type="time" id="appt" name="appt" min="09:00" max="18:00" (change)="logEndTime()" [(ngModel)]="endTime">
+  <input class="timePicker" type="time" id="appt" name="appt" min="09:00" max="18:00" (change)="logEndTime()" [(ngModel)]="endTime"> -->
+
   <!-- <mat-form-field appearance="outline" class="custom-form-field">
     <input matInput placeholder="End time" [(ngModel)]="endTime" [ngxMatTimepicker]="picker4" (ngModelChange)="logEndTime($event)" [format]="24">
     <ngx-mat-timepicker #picker4></ngx-mat-timepicker>
   </mat-form-field> -->
 
-  <mat-form-field appearance="outline" class="custom-form-field">
-    <mat-select [(value)]="selected1" placeholder="Tower Operating" (selectionChange)="getData()">
-      <mat-option *ngFor="let item of chartData;let i=index" [value]="i">
-        {{item}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+
 
   <!-- <mat-form-field appearance="outline" class="custom-form-field">
     <mat-select [(value)]="selected5" (selectionChange)="getGuid()" placeholder="8樓水塔">
@@ -47,73 +121,7 @@
     </mat-select>
   </mat-form-field> -->
 
-  <span [ngSwitch]="selected1">
-    <span *ngSwitchDefault>
-      <button mat-raised-button class="mainbtn" (click)="demand()">Queries</button>
-      <button class="switchbtn" (click)="toggleXAxisLabel()" [ngStyle]="{'background-color': showXAxisLabel ? 'green' : 'grey'}">{{ showXAxisLabel ? 'xAxis show' : 'xAxis hide' }}</button>
-      <button class="switchbtn" (click)="toggleTooltip()" [ngStyle]="{'background-color': showTooltip ? 'green' : 'grey'}">{{ showTooltip ? 'tip show' : 'tip hide' }}</button>
-      <br>
-      <br>
-      <!-- <div echarts [options]="option1" [theme]="theme" class="demo-chart" style="height:600px;"></div> -->
-      <div echarts [options]="option1" class="demo-chart" style="height:600px;"></div>
-    </span>
-    <div *ngSwitchCase="4">
-      <br>
-      <mat-form-field appearance="outline" class="custom-form-field">
-        <mat-label>main</mat-label>
-        <mat-select [(value)]="selected2" (selectionChange)="getName()" placeholder="target">
-          <mat-option *ngFor="let item of scatterData;let i=index" [value]="i">
-            {{item}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
-      <mat-form-field class="example-form-field" appearance="outline" class="custom-form-field">
-        <!-- <mat-label>Clearable input</mat-label> -->
-        <mat-label>Min value</mat-label>
-        <input matInput type="text" placeholder="Min value" [(ngModel)]="minValue">
-        <button *ngIf="minValue" matSuffix mat-icon-button aria-label="Clear" (click)="minValue=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field class="example-form-field" appearance="outline" class="custom-form-field">
-        <!-- <mat-label>Clearable input</mat-label> -->
-        <mat-label>Max value</mat-label>
-        <input matInput type="text" placeholder="Max value" [(ngModel)]="maxValue">
-        <button *ngIf="maxValue" matSuffix mat-icon-button aria-label="Clear" (click)="maxValue=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="custom-form-field">
-        <mat-label>xAxis</mat-label>
-        <mat-select [(value)]="selected3" (selectionChange)="getXaxis()" placeholder="xAxis">
-          <mat-option *ngFor="let item of scatterData;let i=index" [value]="i">
-            {{item}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="custom-form-field">
-        <mat-label>yAxis</mat-label>
-        <mat-select [(value)]="selected4" (selectionChange)="getYaxis()" placeholder="yAxis">
-          <mat-option *ngFor="let item of scatterData;let i=index" [value]="i">
-            {{item}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-      <button mat-raised-button (click)="scatterDemand()">Queries</button>
-      <br>
-      <!-- <div echarts [options]="option2" [theme]="theme" class="demo-chart" style="height:600px;"></div> -->
-      <div echarts [options]="option2" class="demo-chart" style="height:600px;"></div>
-    </div>
-    <!-- <p *ngSwitchCase="2">
-
-    </p> -->
-  </span>
 </div>
 
 <ng-container *ngIf="showSpinner">

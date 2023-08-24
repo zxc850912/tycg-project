@@ -61,33 +61,35 @@ export class ExportComponent implements OnInit {
     this.data$.subscribe((x)=>{
       console.log(x);
       this.selected1 = x;
+
+      this.data2$ = this.datasvc.getNameList();
+      this.data2$.subscribe((x)=>{
+        console.log(x);
+        this.nameList = x;
+      })
+
+      this.data3$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+      this.data3$.subscribe((x)=>{
+        console.log(x);
+        this.caseRoleKeyList = x;
+      })
+
+      this.data4$ = this.datasvc.ExportItem();    // 取得下拉項目
+      this.data4$.subscribe((x)=>{
+        console.log(x);
+        this.itemList = x;
+
+        this.downloadItem = this.itemList[this.selected2];    // 設定項目下拉預設值
+      })
+
+      this.month = moment().startOf('day').toDate();  // 將字串轉換為 Date 物件
+
+      // 設定日期預設值
+      // const today = moment();
+      // this.month = today.format('YYYY/MM');
+      // this.start = this.month + "/01";
+      // this.end = this.month + "/" + today.daysInMonth();
     })
-
-    this.data2$ = this.datasvc.getNameList();
-    this.data2$.subscribe((x)=>{
-      console.log(x);
-      this.nameList = x;
-    })
-
-    this.data3$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
-    this.data3$.subscribe((x)=>{
-      console.log(x);
-      this.caseRoleKeyList = x;
-    })
-
-    this.data4$ = this.datasvc.ExportItem();    // 取得下拉項目
-    this.data4$.subscribe((x)=>{
-      console.log(x);
-      this.itemList = x;
-
-      this.downloadItem = this.itemList[this.selected2];    //設定項目下拉預設值
-    })
-
-    // 設定日期預設值
-    const today = moment();
-    this.month = today.format('YYYY/MM');
-    this.start = this.month + "/01";
-    this.end = this.month + "/" + today.daysInMonth();
 
     // this.data3$ = this.datasvc.ExportMainItem();
     // this.data3$.subscribe((x)=>{
@@ -96,6 +98,16 @@ export class ExportComponent implements OnInit {
     //   this.deviceName = x[0].name;
     //   // console.log(this.deviceName);
     // })
+  }
+
+  monthSeleted($event: any){
+    console.log($event);
+    const ttp = moment($event).format('YYYY-MM');
+    console.log(ttp);
+  }
+
+  onDropdownChange(){
+
   }
 
   setMonthAndYear(normalizedMonthAndYear: moment.Moment, datepicker: MatDatepicker<moment.Moment>) {
@@ -140,18 +152,21 @@ export class ExportComponent implements OnInit {
     this.showSpinner = true;
     this.setItem = this.caseRoleKeyList[this.selected1];
     this.deviceName = this.nameList[this.selected1];
+    const month = moment(this.month).startOf('day').format('YYYY-MM');
+    console.log(month);
+    const start = moment(month).startOf('month').format('YYYY-MM-DD');
+    const end = moment(month).endOf('month').format('YYYY-MM-DD');
     var body = {
-      "startTime": this.start,
-      "endTime": this.end
+      "startTime": start,
+      "endTime": end
     };
-    // console.log(body);
+    console.log(body);
     var option = { responseType: "blob" as "json" };
 
+    this.reportName = this.deviceName + this.downloadItem + "_" + month + ".xlsx";
+    console.log(this.reportName);
 
-    this.reportName = this.deviceName + this.downloadItem + "_" + this.month + ".xlsx";
-    // console.log(this.reportName);
-
-
+    console.log(this.setItem,this.downloadItem,body,option);
     this.data5$ = this.datasvc.ExportDownload(this.setItem,this.downloadItem,body,option);
     this.data5$.subscribe((x)=>{
       console.log(x);

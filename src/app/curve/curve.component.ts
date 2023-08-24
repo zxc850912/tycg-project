@@ -29,10 +29,15 @@ export class CurveComponent implements OnInit {
   // startTime: any;
   // endDate: any;
   // endTime: any;
-  startDate = moment().format('YYYY-MM-DD');
-  startTime = '00:00';
-  endDate = moment().format('YYYY-MM-DD');
-  endTime = '23:59';
+
+  date7!: Date;
+
+  startDay: any;
+  endDay: any;
+  // startDate = moment().format('YYYY-MM-DD');
+  // startTime = '00:00';
+  // endDate = moment().format('YYYY-MM-DD');
+  // endTime = '23:59';
 
   selected1 = '';
   selected2 = '';
@@ -64,6 +69,11 @@ export class CurveComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showSpinner = true;
+    this.startDay = moment().startOf('day').toDate(); // 將字串轉換為 Date 物件
+    this.endDay = moment().endOf('day').toDate();     // 將字串轉換為 Date 物件
+    console.log(this.startDay,this.endDay);
+
     this.data$ = this.datasvc.getSelected();
     this.data$.subscribe((x)=>{
       console.log(x);
@@ -91,15 +101,19 @@ export class CurveComponent implements OnInit {
     this.item = 'Tower Operating';
     // this.setItem = "5cbd1b8c-8eea-414f-bf9e-f981e9927864"
 
+    const startDay = moment(this.startDay).format('YYYY-MM-DD HH:mm');
+    const endDay = moment(this.endDay).format('YYYY-MM-DD HH:mm');
+
     var body = {
-      "startTime": this.startDate + ' ' + this.startTime,
-      "endTime": this.endDate + ' ' + this.endTime
+      "startTime": startDay,
+      "endTime": endDay
     }
+    console.log(body);
 
     this.data3$ = this.datasvc.CurveLineChart(this.item,this.setItem,body);
     this.data3$.subscribe((x)=>{
-      // console.log(x);
-      // console.log(x.xAxis);
+      console.log(x);
+      console.log(x.xAxis);
       // console.log(x.series);
 
       const series = x.series.map((item: { name: string; }) => {
@@ -247,6 +261,7 @@ export class CurveComponent implements OnInit {
         },
         series: series,   //匯入資料
       };
+      this.showSpinner = false;
     })
 
     this.data$ = this.datasvc.CurveItem();
@@ -262,10 +277,29 @@ export class CurveComponent implements OnInit {
     })
   }
 
-  logStartDate($event: any){
-    this.startDate = moment($event).format('YYYY-MM-DD');
-    // console.log(this.startDate);
+  startDate($event: any){
+    console.log($event);
+    const ttp = moment($event).format('YYYY-MM-DD HH:mm');
+    console.log(ttp);
   }
+
+  endDate($event: any){
+    console.log($event);
+    const ttp = moment($event).format('YYYY-MM-DD HH:mm');
+    console.log(ttp);
+  }
+
+  checkDateRange() {
+    if (moment(this.startDay).isAfter(this.endDay)) {
+      // 如果起始日期晚於結束日期，將起始日期設定為結束日期
+      this.startDay = this.endDay;
+    }
+  }
+
+  // logStartDate($event: any){
+  //   this.startDate = moment($event).format('YYYY-MM-DD');
+  //   // console.log(this.startDate);
+  // }
 
   // logStartTime($event: any){
   //   // this.start = moment($event.value).format('HH:mm');
@@ -278,10 +312,10 @@ export class CurveComponent implements OnInit {
   }
 
 
-  logEndDate($event: any){
-    this.endDate = moment($event).format('YYYY-MM-DD');
-    // console.log(this.endDate);
-  }
+  // logEndDate($event: any){
+  //   this.endDate = moment($event).format('YYYY-MM-DD');
+  //   // console.log(this.endDate);
+  // }
 
   // logEndTime($event: any){
   //   // this.start = moment($event.value).format('HH:mm');
@@ -296,6 +330,7 @@ export class CurveComponent implements OnInit {
     this.data2$ = this.chartData[this.selected1];
     // console.log(this.data2$);
     this.item = this.data2$;
+    console.log(this.item);
   }
 
   // getGuid(){
@@ -352,17 +387,23 @@ export class CurveComponent implements OnInit {
 
   demand(){
     this.showSpinner = true;
+
+    const startDay = moment(this.startDay).format('YYYY-MM-DD HH:mm');
+    const endDay = moment(this.endDay).format('YYYY-MM-DD HH:mm');
+
     var body = {
-      "startTime": this.startDate + ' ' + this.startTime,
-      "endTime": this.endDate + ' ' + this.endTime
+      "startTime": startDay,
+      "endTime": endDay
     }
+
+    console.log(this.item,this.setItem,body);
+
     this.data3$ = this.datasvc.CurveLineChart(this.item,this.setItem,body);
     // this.chartTitle = this.item;
     this.data3$.subscribe((x)=>{
-      // console.log(x);
+      console.log(x);
       // console.log(x.xAxis);
       // console.log(x.series);
-
 
       const series = x.series.map((item: { name: string; }) => {
         if (item.name === 'WB') {
@@ -509,10 +550,14 @@ export class CurveComponent implements OnInit {
 
   scatterDemand(){
     this.showSpinner = true;
+    const startDay = moment(this.startDay).format('YYYY-MM-DD HH:mm');
+    const endDay = moment(this.endDay).format('YYYY-MM-DD HH:mm');
+
     var body = {
-      "startTime": this.startDate + ' ' + this.startTime,
-      "endTime": this.endDate + ' ' + this.endTime
+      "startTime": startDay,
+      "endTime": endDay
     }
+
     if (this.minValue > this.maxValue) {
       alert('The Max value cannot be less than the Min value !');
       this.showSpinner = false;

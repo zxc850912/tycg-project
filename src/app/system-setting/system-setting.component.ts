@@ -103,83 +103,84 @@ export class SystemSettingComponent implements OnInit {
     this.data$.subscribe((x)=>{
       console.log(x);
       this.selected1 = x;
+
+      this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+      this.data2$.pipe(
+        switchMap((caseRoleKeyList) => {
+          this.caseRoleKeyList = caseRoleKeyList;
+
+          // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
+          console.log("SystemSettingData called at", new Date());
+          return timer(0, 60000).pipe(
+            switchMap(() => this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]))
+          );
+        })
+      ).subscribe((x:any) => {
+        console.log(x);
+        this.manufacturer = x.set.manufacturer;
+        this.modelNo = x.set.modelNo;
+        this.type = x.set.type;
+        this.totalWaterFlowrate = x.set.totalWaterFlowrate;
+        this.waterFlowRateCell = x.set.waterFlowRateCell;
+        this.hotWaterTemp = x.set.hotWaterTemp;
+        this.coldWaterTemp = x.set.coldWaterTemp;
+        this.ambWetbulbTemp = x.set.ambWetbulbTemp;
+        this.evaporationLoss = x.set.evaporationLoss;
+        this.dirftLoss = x.set.dirftLoss;
+        this.noOfCell = x.set.noOfCell;
+        this.noOfFanCell = x.set.noOfFanCell;
+        this.totalNoOfFan = x.set.totalNoOfFan;
+        this.airVolumePerFan = x.set.airVolumePerFan;
+        this.noCell = x.set.noCell;
+        this.motorPowerSourcePhase = x.set.motorPowerSourcePhase;
+        this.motorPowerSourceHz = x.set.motorPowerSourceHz;
+        this.motorPowerSourceVolt = x.set.motorPowerSourceVolt;
+        this.motorNumberOfMotorPoles = x.set.motorNumberOfMotorPoles;
+        this.motorRatedHP = x.set.motorRatedHP;
+        this.motorRatedPower = x.set.motorRatedPower;
+        this.motorRatedAmp = x.set.motorRatedAmp;
+        this.pumpPowerSourcePhase = x.set.pumpPowerSourcePhase;
+        this.pumpPowerSourceHz = x.set.pumpPowerSourceHz;
+        this.pumpPowerSourceVolt = x.set.pumpPowerSourceVolt;
+        this.pumpNumberOfMotorPoles = x.set.pumpNumberOfMotorPoles;
+        this.pumpRatedHP = x.set.pumpRatedHP;
+        this.pumpRatedAmp = x.set.pumpRatedAmp;
+
+        // console.log(x[0].solar);
+        // console.log(Object.keys(x[0].solar[0]));
+
+        this.displayedColumns2 = ['startTime','endTime','seasonStatus'];
+        this.columnsToDisplay2 = ['startTime','endTime','seasonStatus'];
+        this.dataSource2 = x.solar;
+        // console.log(this.dataSource2);
+
+        this.fanOff = x.set.fanOff;
+        this.fanLowest = x.set.fanLowest;
+        this.fanFull = x.set.fanFull;
+        this.fanOverLoad = x.set.fanOverLoad;
+        this.pumpOff = x.set.pumpOff;
+        this.pumpLowest = x.set.pumpLowest;
+        this.pumpFull = x.set.pumpFull;
+        this.pumpOverLoad = x.set.pumpOverLoad;
+
+        this.sensorTempLowest = x.set.sensorTempLowest;
+        this.sensorTempHightest = x.set.sensorTempHightest;
+        this.sensorRhLowest = x.set.sensorRhLowest;
+        this.sensorRhHightest = x.set.sensorRhHightest;
+
+        this.btu_btuHwtLowest = x.set.btuHwtLowest;
+        this.btu_btuHwtHightest = x.set.btuHwtHightest;
+        this.btu_btuHwtOver = x.set.btuHwtOver;
+        this.btu_btuCwtLowest = x.set.btuCwtLowest;
+        this.btu_btuCwtHightest = x.set.btuCwtHightest;
+        this.btu_btuCwtOver = x.set.btuCwtOver;
+        this.btu_btuFlowOff = x.set.btuFlowOff;
+        this.btu_btuFlowOn = x.set.btuFlowOn;
+
+        this.startTimeList = x.solar.map((item: { startTime: any; }) => item.startTime);
+        this.endTimeList = x.solar.map((item: { endTime: any; }) => item.endTime);
+      });
     })
-
-    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
-    this.data2$.pipe(
-      switchMap((caseRoleKeyList) => {
-        this.caseRoleKeyList = caseRoleKeyList;
-
-        // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
-        return timer(0, 60000).pipe(
-          switchMap(() => this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]))
-        );
-      })
-    ).subscribe((x:any) => {
-      console.log(x);
-      this.manufacturer = x.set.manufacturer;
-      this.modelNo = x.set.modelNo;
-      this.type = x.set.type;
-      this.totalWaterFlowrate = x.set.totalWaterFlowrate;
-      this.waterFlowRateCell = x.set.waterFlowRateCell;
-      this.hotWaterTemp = x.set.hotWaterTemp;
-      this.coldWaterTemp = x.set.coldWaterTemp;
-      this.ambWetbulbTemp = x.set.ambWetbulbTemp;
-      this.evaporationLoss = x.set.evaporationLoss;
-      this.dirftLoss = x.set.dirftLoss;
-      this.noOfCell = x.set.noOfCell;
-      this.noOfFanCell = x.set.noOfFanCell;
-      this.totalNoOfFan = x.set.totalNoOfFan;
-      this.airVolumePerFan = x.set.airVolumePerFan;
-      this.noCell = x.set.noCell;
-      this.motorPowerSourcePhase = x.set.motorPowerSourcePhase;
-      this.motorPowerSourceHz = x.set.motorPowerSourceHz;
-      this.motorPowerSourceVolt = x.set.motorPowerSourceVolt;
-      this.motorNumberOfMotorPoles = x.set.motorNumberOfMotorPoles;
-      this.motorRatedHP = x.set.motorRatedHP;
-      this.motorRatedPower = x.set.motorRatedPower;
-      this.motorRatedAmp = x.set.motorRatedAmp;
-      this.pumpPowerSourcePhase = x.set.pumpPowerSourcePhase;
-      this.pumpPowerSourceHz = x.set.pumpPowerSourceHz;
-      this.pumpPowerSourceVolt = x.set.pumpPowerSourceVolt;
-      this.pumpNumberOfMotorPoles = x.set.pumpNumberOfMotorPoles;
-      this.pumpRatedHP = x.set.pumpRatedHP;
-      this.pumpRatedAmp = x.set.pumpRatedAmp;
-
-      // console.log(x[0].solar);
-      // console.log(Object.keys(x[0].solar[0]));
-
-      this.displayedColumns2 = ['startTime','endTime','seasonStatus'];
-      this.columnsToDisplay2 = ['startTime','endTime','seasonStatus'];
-      this.dataSource2 = x.solar;
-      // console.log(this.dataSource2);
-
-      this.fanOff = x.set.fanOff;
-      this.fanLowest = x.set.fanLowest;
-      this.fanFull = x.set.fanFull;
-      this.fanOverLoad = x.set.fanOverLoad;
-      this.pumpOff = x.set.pumpOff;
-      this.pumpLowest = x.set.pumpLowest;
-      this.pumpFull = x.set.pumpFull;
-      this.pumpOverLoad = x.set.pumpOverLoad;
-
-      this.sensorTempLowest = x.set.sensorTempLowest;
-      this.sensorTempHightest = x.set.sensorTempHightest;
-      this.sensorRhLowest = x.set.sensorRhLowest;
-      this.sensorRhHightest = x.set.sensorRhHightest;
-
-      this.btu_btuHwtLowest = x.set.btuHwtLowest;
-      this.btu_btuHwtHightest = x.set.btuHwtHightest;
-      this.btu_btuHwtOver = x.set.btuHwtOver;
-      this.btu_btuCwtLowest = x.set.btuCwtLowest;
-      this.btu_btuCwtHightest = x.set.btuCwtHightest;
-      this.btu_btuCwtOver = x.set.btuCwtOver;
-      this.btu_btuFlowOff = x.set.btuFlowOff;
-      this.btu_btuFlowOn = x.set.btuFlowOn;
-
-      this.startTimeList = x.solar.map((item: { startTime: any; }) => item.startTime);
-      this.endTimeList = x.solar.map((item: { endTime: any; }) => item.endTime);
-    });
 
     // this.data$ = this.datasvc.SystemSettingData();
     // this.data$.subscribe((x)=>{

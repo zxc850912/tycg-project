@@ -12,7 +12,7 @@ export class DataService {
 
   caseList$ = new BehaviorSubject<any>([]);     //建立觀察者物件才能訂閱值的變化,不然在其他元件初始要值會undefind
   caseNameList$ = new BehaviorSubject<any>([]);
-  selected$ = new BehaviorSubject<any>('');
+  selected$ = new BehaviorSubject<any>(0);
 
   constructor(private http: HttpClient) {
 
@@ -75,6 +75,10 @@ export class DataService {
   }
 
   CurveLineChart(item: any,setItem: any,x: any){             //Curve折線圖
+    console.log(item);
+    if(item === 'Power Status & Flow Status'){
+      item = 'Power Status %26 Flow Status';
+    }
     return this.http.post(this.apiUrl + 'post-curve-default-Line?Item=' + item + '&setItem=' + setItem,
       x
     );

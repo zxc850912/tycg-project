@@ -54,10 +54,11 @@ export interface PeriodicElement{
 })
 export class HomeComponent implements OnInit {
 
-  caseList: any;
+  caseList!: any[];
   caseRoleKeyList: any;
 
-  selected1 = 0;
+  // selected1 = 0;    //給一個預設的值
+  selected1: any;
 
   tabGroupAnimation: string = 'fadeInOut';
   pageTitle = 'System Scope';
@@ -68,6 +69,7 @@ export class HomeComponent implements OnInit {
   data$ = new Observable<any>();
   data2$ = new Observable<any>();
   data3$ = new Observable<any>();
+  data4$ = new Observable<any>();
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
@@ -79,54 +81,57 @@ export class HomeComponent implements OnInit {
 
   private dataSubscription: Subscription | undefined;
 
+  showSpinner = false;
+
   constructor(private observer: BreakpointObserver, private router: Router, public datasvc: DataService,private authService: AuthService) {
 
   }
 
   ngOnInit(): void {
+    this.showSpinner = true;
     setInterval(() => {
       this.time = moment().format('YYYY-MM-DD HH:mm:ss');
-    }, 1);
+    }, 1000);
 
-    this.datasvc.setSelected(this.selected1);
-
-    this.data$ = this.datasvc.getNameList();    //所有案場下拉選單
+    this.data$ = this.datasvc.getNameList();    // 所有案場下拉選單
     this.data$.subscribe((x)=>{
-      console.log(x);
-      this.caseList = x;
+      if (x.length > 0){
+        console.log(x);
+        this.caseList = x;
+
+        this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+        this.data2$.subscribe((x) => {
+          if (x.length > 0){
+            console.log(x);
+            this.caseRoleKeyList = x;
+            // this.datasvc.setSelected(this.selected1);   // 把預設值傳入
+            this.data4$ = this.datasvc.getSelected();
+            this.data4$.subscribe((x) => {
+              console.log(x);
+              this.selected1 = x;
+
+              const manualCall$ = this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]);     //建立第一個觀察者物件
+              const periodicCall$ = interval(60000).pipe(             //建立第二個觀察者物件,並每60秒執行一次
+                mergeMap(() => this.datasvc.InformationData(this.caseRoleKeyList[this.selected1])),
+                share()
+              );
+
+              this.data3$ = concat(manualCall$, periodicCall$);        //使用concat()將觀察者物件串接起來,內容會依序執行,但因為periodicCall$有計時器,所以會持續執行,manualCall$則執行完一次就停止
+              this.data3$.subscribe((x)=>{                             //訂閱資料
+                if (x){
+                  console.log(x);
+                  this.displayedColumns = x.titleName;
+                  this.columnsToDisplay = x.titleName;
+                  this.deviceList = x.titleNums;
+
+                  this.showSpinner = false;
+                }
+              })
+            })
+          }
+        })
+      }
     })
-
-    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
-    this.data2$.pipe(
-      switchMap((caseRoleKeyList) => {
-        this.caseRoleKeyList = caseRoleKeyList;
-
-        // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
-        return timer(0, 60000).pipe(
-          switchMap(() => this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]))
-        );
-      })
-    ).subscribe((x:any) => {
-      console.log(x);
-      this.displayedColumns = x.titleName;
-      this.columnsToDisplay = x.titleName;
-      this.deviceList = x.titleNums;
-    });
-
-
-    // const manualCall$ = this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]);     //建立第一個觀察者物件
-    // const periodicCall$ = interval(60000).pipe(             //建立第二個觀察者物件,並每60秒執行一次
-    //   mergeMap(() => this.datasvc.InformationData(this.caseRoleKeyList[this.selected1])),
-    //   share()
-    // );
-    // this.data3$ = concat(manualCall$, periodicCall$);        //使用concat()將觀察者物件串接起來,內容會依序執行,但因為periodicCall$有計時器,所以會持續執行,manualCall$則執行完一次就停止
-
-    // this.data3$.subscribe((x)=>{                             //訂閱資料
-    //   console.log(x);
-    //   this.displayedColumns = x.titleName;
-    //   this.columnsToDisplay = x.titleName;
-    //   this.deviceList = x.titleNums;
-    // })
   }
 
   ngAfterViewInit() {
@@ -167,11 +172,16 @@ export class HomeComponent implements OnInit {
     this.datasvc.setSelected(this.selected1);
   }
 
+  onDropdownChange() {
+    // this.selected1 = this.cities.indexOf(this.selectedCity);
+    // console.log(this.caseRoleKeyList[this.selected1]);
+    console.log(this.selected1);
+  }
+
   onButtonClick(buttonText: string) {
     this.pageTitle = buttonText; // 更新 sidebarSelect 變量
     localStorage.setItem('lastSelectedButton', buttonText);
   }
-
 
   logout(){
     this.authService.logout();

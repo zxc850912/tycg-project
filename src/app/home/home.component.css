@@ -130,7 +130,7 @@ mat-sidenav {
 .content {
   /* background: #1e1e2f; */
   background: #dae8fc;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 100px);
   border-radius: 10px;
   margin: 16px;
   margin-left: 32px;
@@ -142,17 +142,30 @@ mat-sidenav {
   overflow-x: scroll;
 }
 
-
 mat-sidenav-container {
   height: calc(100vh - 65px);
 }
 
-mat-form-field {
+/* mat-form-field {
   width: 100%;
   background-color: #fff;
   border-radius: 4px;
+} */
+
+
+.dropdown-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
+.dropdown-container .p-dropdown {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
 
 .menu-button {
   width: 100%;
@@ -181,7 +194,7 @@ mat-form-field {
 
 .logout-button{
   position: relative;
-  top: 220px;
+  top: 180px;
   border: solid 1px;
   width: 80%;
   display: flex;
@@ -266,4 +279,22 @@ td{
 
 .fadeInOut.ng-leave {
   opacity: 1;
+}
+
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  backdrop-filter: blur(2px);
 }

@@ -40,6 +40,9 @@ import { LoginComponent } from './login/login.component';
 import { TestAreaComponent } from './test-area/test-area.component';
 import { HomeComponent } from './home/home.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+//PrimeNG 套件
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -87,7 +90,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTabsModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    DropdownModule,
+    CalendarModule
   ],
   providers: [DataService,
   ],

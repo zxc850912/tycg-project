@@ -14,18 +14,22 @@
   font-size: 2em;
 } */
 
-/* mat-form-field{
+p-calendar{
+  margin: 0px 10px;
+}
+
+mat-form-field{
   background: #fff;
   color: #000;
   border-radius: 15px;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  height: 50px;
+  /* height: 56px; */
   margin: 20px 10px;
-} */
+}
 
 .timePicker{
   width: 180px;
-  height: 50px;
+  height: 52px;
   border: #000;
   border-radius: 15px;
   background: #fff;
@@ -36,7 +40,6 @@
   font-size: 18px;
   padding-right: 10px;
 }
-
 
 mat-label{
   /* color: #fff; */

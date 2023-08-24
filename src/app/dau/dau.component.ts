@@ -29,34 +29,39 @@ export class DAUComponent implements OnInit {
 
   title!: string;
 
+  showSpinner = false;
+
   constructor(public datasvc: DataService) {
 
   }
 
   ngOnInit(): void {
+    this.showSpinner = true;
     this.data$ = this.datasvc.getSelected();
     this.data$.subscribe((x)=>{
       console.log(x);
       this.selected1 = x;
+
+      this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+      this.data2$.pipe(
+        switchMap((caseRoleKeyList) => {
+          this.caseRoleKeyList = caseRoleKeyList;
+
+          // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
+          return timer(0, 60000).pipe(
+            switchMap(() => this.datasvc.DAU(this.caseRoleKeyList[this.selected1]))
+          );
+        })
+      ).subscribe((x:any) => {
+        console.log(x);
+        this.title = x.name;
+        this.displayedColumns = x.signalName;
+        this.columnsToDisplay = x.signalName;
+        this.dataSource = x.states;
+
+        this.showSpinner = false;
+      });
     })
-
-    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
-    this.data2$.pipe(
-      switchMap((caseRoleKeyList) => {
-        this.caseRoleKeyList = caseRoleKeyList;
-
-        // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
-        return timer(0, 60000).pipe(
-          switchMap(() => this.datasvc.DAU(this.caseRoleKeyList[this.selected1]))
-        );
-      })
-    ).subscribe((x:any) => {
-      console.log(x);
-      this.title = x.name;
-      this.displayedColumns = x.signalName;
-      this.columnsToDisplay = x.signalName;
-      this.dataSource = x.states;
-    });
 
     // const manualCall$ = this.datasvc.DAU();
     // const periodicCall$ = interval(60000).pipe(

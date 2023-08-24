@@ -16,14 +16,14 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-     // 檢查使用者是否已經登入
-     if (this.authService.isLoggedIn()) {
+    // 檢查使用者是否已經登入
+    if (this.authService.isLoggedIn()) {
       return true;
+    }else {
+      // 導向登入頁面
+      this.router.navigate(['/Login']);
+      return false;
     }
-
-    // 導向登入頁面
-    this.router.navigate(['/Login']);
-    return false;
   }
 
 }

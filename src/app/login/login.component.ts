@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    if (this.username === 'admin' && this.password === 'admin') {
+    if (this.username && this.password ) {
       // 登入成功後將 isLoggedIn 設為 true
 
       var payload = {
@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit {
         console.log(x);
         this.caseRoleKeyList = x.enableCaseFeatures.map((item: { caseRoleKey: any; }) => item.caseRoleKey);
         console.log(this.caseRoleKeyList);
-        this.datasvc.setCaseList(this.caseRoleKeyList);
+        this.datasvc.setCaseList(this.caseRoleKeyList);     // 儲存所有caseRoleKey
 
         this.nameList = x.enableCaseFeatures.map((item: { name: any; }) => item.name);
         console.log(this.nameList);
-        this.datasvc.setNameList(this.nameList);
+        this.datasvc.setNameList(this.nameList);            // 儲存所有name
       })
 
       this.authService.login();

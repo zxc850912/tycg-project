@@ -35,11 +35,6 @@ body{
   padding-bottom: 0;
 }
 
-/*改變框內的padding,目前找不到框內文字置中方法,暫時用padding處理*/
-.mat-form-field-appearance-outline .mat-form-field-infix {
-  padding: 0px 0px 10px 0px;
-}
-
 /*由於改變表格設定,所以這邊將表格內icon置中*/
 .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
   transform: none !important;
@@ -55,4 +50,16 @@ input.mat-input-element{
   color: #fff;
 } */
 
+.p-dropdown .p-dropdown-label{
+  background: #002b5c;
+  border: 0 none;
+  color: #fff;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
 
+.p-dropdown .p-dropdown-trigger{
+  background: #002b5c;
+  color: #6c757d;
+  width: 3rem;
+}

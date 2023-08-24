@@ -35,11 +35,6 @@
 
       <div class="table-container">
         <table mat-table [dataSource]="item.titles" class="mat-elevation-z8" border="1">
-
-          <!-- <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" style="padding: 0;"class="title"> Cell No. </th>
-          </ng-container> -->
-
           <ng-container matColumnDef="Space">
             <th mat-header-cell *matHeaderCellDef class="title" style="padding:0;">  </th>
           </ng-container>
@@ -180,13 +175,16 @@
 
   <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-select [(value)]="selected1" (selectionChange)="changeCase()">
           <mat-option *ngFor="let item of caseList; let i=index" [value]="i">
             {{item}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
+      <div class="dropdown-container">
+        <p-dropdown class="test" [options]="caseList" [(ngModel)]="selected1" (onChange)="onDropdownChange()"></p-dropdown>
+      </div>
 
       <button mat-button class="menu-button" routerLink="/Home/SystemScope" (click)="onButtonClick('System Scope')" routerLinkActive="menu-button-select">
         <span>System Scope</span>
@@ -237,3 +235,8 @@
 
   </mat-sidenav-container>
 </div>
+
+<ng-container *ngIf="showSpinner">
+  <div class="overlay"></div>
+  <mat-spinner></mat-spinner>
+</ng-container>
