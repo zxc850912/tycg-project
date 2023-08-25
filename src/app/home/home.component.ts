@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showSpinner = true;
+    // this.showSpinner = true;
     setInterval(() => {
       this.time = moment().format('YYYY-MM-DD HH:mm:ss');
     }, 1000);
@@ -98,40 +98,39 @@ export class HomeComponent implements OnInit {
       if (x.length > 0){
         console.log(x);
         this.caseList = x;
-
-        this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
-        this.data2$.subscribe((x) => {
-          if (x.length > 0){
-            console.log(x);
-            this.caseRoleKeyList = x;
-            // this.datasvc.setSelected(this.selected1);   // 把預設值傳入
-            this.data4$ = this.datasvc.getSelected();
-            this.data4$.subscribe((x) => {
-              console.log(x);
-              this.selected1 = x;
-
-              const manualCall$ = this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]);     //建立第一個觀察者物件
-              const periodicCall$ = interval(60000).pipe(             //建立第二個觀察者物件,並每60秒執行一次
-                mergeMap(() => this.datasvc.InformationData(this.caseRoleKeyList[this.selected1])),
-                share()
-              );
-
-              this.data3$ = concat(manualCall$, periodicCall$);        //使用concat()將觀察者物件串接起來,內容會依序執行,但因為periodicCall$有計時器,所以會持續執行,manualCall$則執行完一次就停止
-              this.data3$.subscribe((x)=>{                             //訂閱資料
-                if (x){
-                  console.log(x);
-                  this.displayedColumns = x.titleName;
-                  this.columnsToDisplay = x.titleName;
-                  this.deviceList = x.titleNums;
-
-                  this.showSpinner = false;
-                }
-              })
-            })
-          }
-        })
       }
     })
+
+    var interval;
+    this.tableDisplay();
+    clearInterval(interval);
+    interval = setInterval(() => {
+      this.tableDisplay();
+    }, 60000);
+  }
+
+  tableDisplay(){
+    this.data2$ = this.datasvc.getCaseList();   // 所有案場 caseRoleKey
+    this.data2$.subscribe((x) => {
+      if (x.length > 0){
+        console.log(x);
+        this.caseRoleKeyList = x;
+
+        this.data3$ = this.datasvc.getSelected();
+        this.data3$.subscribe((x) => {
+          console.log(x);
+          this.selected1 = x;
+
+          this.data4$ = this.datasvc.InformationData(this.caseRoleKeyList[this.selected1]);
+          this.data4$.subscribe((x)=>{
+            console.log(x);
+            this.displayedColumns = x.titleName;
+            this.columnsToDisplay = x.titleName;
+            this.deviceList = x.titleNums;
+          })
+        });
+      }
+    });
   }
 
   ngAfterViewInit() {
