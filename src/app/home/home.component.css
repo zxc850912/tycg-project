@@ -193,8 +193,10 @@ mat-sidenav-container {
 }
 
 .logout-button{
-  position: relative;
-  top: 180px;
+  /* position: relative;
+  top: 180px; */
+  position: absolute;
+  bottom: 20px;
   border: solid 1px;
   width: 80%;
   display: flex;

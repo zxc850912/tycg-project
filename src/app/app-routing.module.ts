@@ -81,10 +81,10 @@ const routes: Routes = [
         component: AdvanceDataComponent,
         canActivate: [AuthGuard]
       },
-      {
-        path: 'testarea',
-        component: TestAreaComponent,
-      },
+      // {
+      //   path: 'testarea',
+      //   component: TestAreaComponent,
+      // },
       {
         path: '',
         pathMatch: 'full',

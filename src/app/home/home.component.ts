@@ -70,11 +70,36 @@ export class HomeComponent implements OnInit {
   data2$ = new Observable<any>();
   data3$ = new Observable<any>();
   data4$ = new Observable<any>();
+  data5$ = new Observable<any>();
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
   dataSource: PeriodicElement[] = [];
 
+  /*告警顏色判斷依據*/
+  fanOff: any;          //0.01
+  fanLowest: any;       //0.35
+  fanFull: any;         //0.95
+  fanOverLoad: any;     //1.1
+
+  pumpOff: any;         //0.01
+  pumpLowest: any;      //0.35
+  pumpFull: any;        //0.95
+  pumpOverLoad: any;    //1.1
+
+  sensorTempLowest: any;  //0
+  sensorTempHightest: any;  //50
+
+  btuHwtLowest: any;  //18
+  btuHwtHightest: any;  //37
+  btuHwtOver: any;  //40
+
+  btuCwtLowest: any;  //16
+  btuCwtHightest: any;  //32
+  btuCwtOver: any;  //35
+
+  btuFlowOff: any;  //0
+  btuFlowOn: any;   //100
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -127,6 +152,29 @@ export class HomeComponent implements OnInit {
             this.displayedColumns = x.titleName;
             this.columnsToDisplay = x.titleName;
             this.deviceList = x.titleNums;
+          })
+
+          this.data5$ = this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]);
+          this.data5$.subscribe((x)=>{
+            console.log(x);
+            this.fanOff = x.set.fanOff;
+            this.fanLowest = x.set.fanLowest;
+            this.fanFull = x.set.fanFull;
+            this.fanOverLoad = x.set.fanOverLoad;
+            this.pumpOff = x.set.pumpOff;
+            this.pumpLowest = x.set.pumpLowest;
+            this.pumpFull = x.set.pumpFull;
+            this.pumpOverLoad = x.set.pumpOverLoad;
+            this.sensorTempLowest = x.set.sensorTempLowest;
+            this.sensorTempHightest = x.set.sensorTempHightest;
+            this.btuHwtLowest = x.set.btuHwtLowest;
+            this.btuHwtHightest = x.set.btuHwtHightest;
+            this.btuHwtOver = x.set.btuHwtOver;
+            this.btuCwtLowest = x.set.btuCwtLowest;
+            this.btuCwtHightest = x.set.btuCwtHightest;
+            this.btuCwtOver = x.set.btuCwtOver;
+            this.btuFlowOff = x.set.btuFlowOff;
+            this.btuFlowOn = x.set.btuFlowOn;
           })
         });
       }

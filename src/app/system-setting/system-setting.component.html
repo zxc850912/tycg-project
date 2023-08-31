@@ -6,10 +6,7 @@
 <br><br>
 
 <div class="total-container">
-  <ng-container *ngIf="showSpinner">
-    <div class="overlay"></div>
-    <mat-spinner></mat-spinner>
-  </ng-container>
+
   <div class="container">
     <!-- 電力參數 -->
    <table border="1" class="electricity-table">
@@ -423,3 +420,8 @@
 <button class="topBtn" (click)="top()">
   <mat-icon class="topIcon" aria-hidden="false" aria-label="Example home icon" fontIcon="keyboard_double_arrow_up"></mat-icon>
 </button>
+
+<ng-container *ngIf="showSpinner">
+  <div class="overlay"></div>
+  <mat-spinner></mat-spinner>
+</ng-container>

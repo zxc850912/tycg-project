@@ -79,19 +79,95 @@
               'background':
               element[column] === '' ? 'white' :
               element[column] === 'OFF' ? 'grey' :
+              element[column] === 'ON' ? 'red' :
+              element[column] === 'Normal' ? 'green' :
+
+              element[column] < fanOff && column === 'fan_Power_A' ? 'grey' :
+              element[column] > fanOff && element[column] < fanLowest && column === 'fan_Power_A' ? 'red' :
+              element[column] > fanLowest && element[column] < fanFull && column === 'fan_Power_A' ? 'green' :
+              element[column] > fanFull && element[column] < fanOverLoad && column === 'fan_Power_A' ? 'orange' :
+              element[column] > fanOverLoad && column === 'fan_Power_A' ? 'red' :
+
+              element[column] < pumpOff && column === 'pump_Power_A' ? 'grey' :
+              element[column] > pumpOff && element[column] < pumpLowest && column === 'pump_Power_A' ? 'red' :
+              element[column] > pumpLowest && element[column] < pumpFull && column === 'pump_Power_A' ? 'green' :
+              element[column] > pumpFull && element[column] < pumpOverLoad && column === 'pump_Power_A' ? 'orange' :
+              element[column] > pumpOverLoad && column === 'pump_Power_A' ? 'red' :
+
+              element[column] <= btuFlowOff && column === 'water_Flow' ? 'grey' :
+              element[column] > btuFlowOff && element[column] < btuFlowOn && column === 'water_Flow' ? 'green' :
+              element[column] >= btuFlowOn && column === 'water_Flow' ? 'red' :
+
+              element[column] < btuHwtLowest && column === 'hot_Water' ? 'grey' :
+              element[column] > btuHwtLowest && element[column] < btuHwtHightest && column === 'hot_Water' ? 'green' :
+              element[column] > btuHwtHightest && element[column] < btuHwtOver && column === 'hot_Water' ? 'orange' :
+              element[column] > btuHwtOver && column === 'hot_Water' ? 'red' :
+
+              element[column] < btuCwtLowest && column === 'cool_Water' ? 'grey' :
+              element[column] > btuCwtLowest && element[column] < btuCwtHightest && column === 'cool_Water' ? 'green' :
+              element[column] > btuCwtHightest && element[column] < btuCwtOver && column === 'cool_Water' ? 'orange' :
+              element[column] > btuCwtOver && column === 'cool_Water' ? 'red' :
+
+              element[column] <= sensorTempLowest  && column === 'inlet_Air_WB' ? 'grey' :
+              element[column] > sensorTempLowest && element[column] < sensorTempHightest && column === 'inlet_Air_WB' ? 'green' :
+              element[column] >= sensorTempHightest && column === 'inlet_Air_WB' ? 'red' :  'none',
+              'color':
+              element[column] === 'OFF' ? 'white' :
+              element[column] === 'Normal' ? 'white' :
+
+              element[column] < fanOff && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanOff && element[column] < fanLowest && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanLowest && element[column] < fanFull && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanFull && element[column] < fanOverLoad && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanOverLoad && column === 'fan_Power_A' ? 'white' :
+
+              element[column] < pumpOff && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpOff && element[column] < pumpLowest && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpLowest && element[column] < pumpFull && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpFull && element[column] < pumpOverLoad && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpOverLoad && column === 'pump_Power_A' ? 'white' :
+
+              element[column] <= btuFlowOff && column === 'water_Flow' ? 'white' :
+              element[column] > btuFlowOff && element[column] < btuFlowOn && column === 'water_Flow' ? 'white' :
+              element[column] >= btuFlowOn && column === 'water_Flow' ? 'white' :
+
+              element[column] < btuHwtLowest && column === 'hot_Water' ? 'white' :
+              element[column] > btuHwtLowest && element[column] < btuHwtHightest && column === 'hot_Water' ? 'white' :
+              element[column] > btuHwtHightest && element[column] < btuHwtOver && column === 'hot_Water' ? 'white' :
+              element[column] > btuHwtOver && column === 'hot_Water' ? 'white' :
+
+              element[column] < btuCwtLowest && column === 'cool_Water' ? 'white' :
+              element[column] > btuCwtLowest && element[column] < btuCwtHightest && column === 'cool_Water' ? 'white' :
+              element[column] > btuCwtHightest && element[column] < btuCwtOver && column === 'cool_Water' ? 'white' :
+              element[column] > btuCwtOver && column === 'cool_Water' ? 'white' :
+
+              element[column] <= sensorTempLowest  && column === 'inlet_Air_WB' ? 'white' :
+              element[column] > sensorTempLowest && element[column] < sensorTempHightest && column === 'inlet_Air_WB' ? 'white' :
+              element[column] >= sensorTempHightest && column === 'inlet_Air_WB' ? 'white' :
+              'black'}"> {{ column === 'dV2' ? (element[column] | number:'1.2-2') : element[column] }} </td>
+            <!--當column等於'dV2'時會執行()內表達式,不等於就直接顯示:後面的原始值-->
+          </ng-container>
+
+          <!-- <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay;let i=index">
+            <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{displayedColumns[i]}} </th>
+            <td mat-cell *matCellDef="let element" style="padding:0;" [ngStyle]="
+            {
+              'background':
+              element[column] === '' ? 'white' :
+              element[column] === 'OFF' ? 'grey' :
               element[column] === 'ON' ? 'white' :
               element[column] === 'Normal' ? 'green' :
 
               element[column] < 0.01 && column === 'fan_Power_A' ? 'grey' :
               element[column] > 0.01 && element[column] < 0.35 && column === 'fan_Power_A' ? 'red' :
               element[column] > 0.35 && element[column] < 0.95 && column === 'fan_Power_A' ? 'green' :
-              element[column] > 0.95 && element[column] < 1.1 && column === 'fan_Power_A' ? 'yellow' :
+              element[column] > 0.95 && element[column] < 1.1 && column === 'fan_Power_A' ? 'orange' :
               element[column] > 1.1 && column === 'fan_Power_A' ? 'red' :
 
               element[column] < 0.01 && column === 'pump_Power_A' ? 'grey' :
               element[column] > 0.01 && element[column] < 0.35 && column === 'pump_Power_A' ? 'red' :
               element[column] > 0.35 && element[column] < 0.95 && column === 'pump_Power_A' ? 'green' :
-              element[column] > 0.95 && element[column] < 1.1 && column === 'pump_Power_A' ? 'yellow' :
+              element[column] > 0.95 && element[column] < 1.1 && column === 'pump_Power_A' ? 'orange' :
               element[column] > 1.1 && column === 'pump_Power_A' ? 'red' :
 
               element[column] <= 0 && column === 'water_Flow' ? 'grey' :
@@ -100,12 +176,12 @@
 
               element[column] < 18 && column === 'hot_Water' ? 'grey' :
               element[column] > 18 && element[column] < 37 && column === 'hot_Water' ? 'green' :
-              element[column] > 37 && element[column] < 40 && column === 'hot_Water' ? 'yellow' :
+              element[column] > 37 && element[column] < 40 && column === 'hot_Water' ? 'orange' :
               element[column] > 40 && column === 'hot_Water' ? 'red' :
 
               element[column] < 16 && column === 'cool_Water' ? 'grey' :
               element[column] > 16 && element[column] < 32 && column === 'cool_Water' ? 'green' :
-              element[column] > 32 && element[column] < 35 && column === 'cool_Water' ? 'yellow' :
+              element[column] > 32 && element[column] < 35 && column === 'cool_Water' ? 'orange' :
               element[column] > 35 && column === 'cool_Water' ? 'red' :
 
               element[column] <= 0  && column === 'inlet_Air_WB' ? 'grey' :
@@ -144,10 +220,10 @@
               element[column] <= 0  && column === 'inlet_Air_WB' ? 'white' :
               element[column] > 0 && element[column] < 50 && column === 'inlet_Air_WB' ? 'white' :
               element[column] >= 50 && column === 'inlet_Air_WB' ? 'white' :
-
               'black'}"> {{ column === 'dV2' ? (element[column] | number:'1.2-2') : element[column] }} </td>
-            <!--當column等於'dV2'時會執行()內表達式,不等於就直接顯示:後面的原始值-->
-          </ng-container>
+
+          </ng-container> -->
+          <!--當column等於'dV2'時會執行()內表達式,不等於就直接顯示:後面的原始值-->
 
           <!-- <ng-container matColumnDef="PerformanceAbn">
             <th mat-header-cell *matHeaderCellDef style="padding: 0;"> Abnormal </th>
@@ -213,9 +289,9 @@
       <button mat-button class="menu-button" routerLink="/Home/Export" (click)="onButtonClick('Export')" routerLinkActive="menu-button-select">
         <span>Export</span>
       </button>
-      <button mat-button class="menu-button" routerLink="/Home/testarea" routerLinkActive="menu-button-select">
+      <!-- <button mat-button class="menu-button" routerLink="/Home/testarea" routerLinkActive="menu-button-select">
         <span>testarea</span>
-      </button>
+      </button> -->
 
       <!-- <button mat-button class="menu-button" routerLink="/AdvanceData">
         <span>Advance data</span>

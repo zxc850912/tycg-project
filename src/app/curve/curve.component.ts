@@ -571,7 +571,7 @@ export class CurveComponent implements OnInit {
 
       this.option2 = {
         title: {
-          text: this.itemName + ' ' + this.targetName,   //抽換標題
+          text: this.deviceData[0].name + ' ' + this.targetName,   //抽換標題
           x: 'center',
           y: '10px'
         },
@@ -583,7 +583,8 @@ export class CurveComponent implements OnInit {
           }
         },
         xAxis: {
-          type: 'category',
+          type: 'value',
+          min: 0,
           axisLabel: {
             rotate: 30,
             // interval: 10
@@ -593,18 +594,19 @@ export class CurveComponent implements OnInit {
             this.Xaxis,
         },
         yAxis: {
+          type: 'value',
+          min: 0,
           scale: true,
           name: this.Yaxis,
           nameTextStyle:{
             padding:[0,150,0,0]
           },
-          type: 'value',
         },
         series: [
           {
-            symbolSize: 20,
-            data: x.data,
-            type: 'scatter'
+            type: 'scatter',
+            symbolSize: 5,
+            data: x.data
           }
         ]
       };

@@ -16,8 +16,6 @@ export interface PeriodicElement2 {
 })
 export class SystemSettingComponent implements OnInit {
 
-  showSpinner = false;
-
   selected1: any;
   caseRoleKeyList: any;
 
@@ -86,6 +84,7 @@ export class SystemSettingComponent implements OnInit {
   data2$ = new Observable<any>();
   data3$ = new Observable<any>();
 
+  solarUid: any;
   startTimeList: any;
   endTimeList: any;
 
@@ -94,11 +93,14 @@ export class SystemSettingComponent implements OnInit {
 
   @ViewChild('saveBtn') saveBtn!:ElementRef;
 
+  showSpinner = false;
+
   constructor(public datasvc: DataService) {
 
   }
 
   ngOnInit(): void {
+    this.showSpinner  = true;
     this.data$ = this.datasvc.getSelected();
     this.data$.subscribe((x)=>{
       console.log(x);
@@ -111,9 +113,10 @@ export class SystemSettingComponent implements OnInit {
 
           // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
           console.log("SystemSettingData called at", new Date());
-          return timer(0, 60000).pipe(
-            switchMap(() => this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]))
-          );
+          return this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]);
+          // return timer(0, 60000).pipe(
+          //   switchMap(() => this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]))
+          // );
         })
       ).subscribe((x:any) => {
         console.log(x);
@@ -177,8 +180,11 @@ export class SystemSettingComponent implements OnInit {
         this.btu_btuFlowOff = x.set.btuFlowOff;
         this.btu_btuFlowOn = x.set.btuFlowOn;
 
+        this.solarUid = x.solar.map((item: { uid: any; }) => item.uid);
         this.startTimeList = x.solar.map((item: { startTime: any; }) => item.startTime);
         this.endTimeList = x.solar.map((item: { endTime: any; }) => item.endTime);
+
+        this.showSpinner  = false;
       });
     })
 
@@ -254,8 +260,9 @@ export class SystemSettingComponent implements OnInit {
   }
 
   sendData(){
+    this.showSpinner  = true;
     var setBody = {
-      "uid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+      "uid": this.caseRoleKeyList[this.selected1],
       "towerName": "",
       "manufacturer": this.manufacturer,
       "modelNo": this.modelNo,
@@ -327,92 +334,93 @@ export class SystemSettingComponent implements OnInit {
 
     var solarBody = [
       {
-        "uid": "5de2dbde-2528-46d8-9070-4d9c12df4f21",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[0],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[0],
         "endTime": this.endTimeList[0],
         "seasonStatus": seasonStatusList[0]
       },
       {
-        "uid": "13ba4050-e637-452d-96b9-82f91e76206b",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[1],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[1],
         "endTime": this.endTimeList[1],
         "seasonStatus": seasonStatusList[1]
       },
       {
-        "uid": "0ad21a05-9bed-44d7-99af-e4d9f04568fc",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[2],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[2],
         "endTime": this.endTimeList[2],
         "seasonStatus": seasonStatusList[2]
       },
       {
-        "uid": "f9c3e5f5-63b1-4124-87d7-0c1a3261c7a7",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[3],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[3],
         "endTime": this.endTimeList[3],
         "seasonStatus": seasonStatusList[3]
       },
       {
-        "uid": "e309d22c-9ce5-4eff-9a51-617cc9016f22",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[4],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[4],
         "endTime": this.endTimeList[4],
         "seasonStatus": seasonStatusList[4]
       },
       {
-        "uid": "5b9c1983-3ac7-4235-9390-a2756d0dcb1f",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[5],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[5],
         "endTime": this.endTimeList[5],
         "seasonStatus": seasonStatusList[5]
       },
       {
-        "uid": "c3e6ab91-9239-41b8-8362-fede3f669f6e",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[6],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[6],
         "endTime": this.endTimeList[6],
         "seasonStatus": seasonStatusList[6]
       },
       {
-        "uid": "961aff6b-0828-4247-8af5-82572f61e2f8",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[7],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[7],
         "endTime": this.endTimeList[7],
         "seasonStatus": seasonStatusList[7]
       },
       {
-        "uid": "2a67b1b5-aabb-4840-9176-e1d160270d36",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[8],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[8],
         "endTime": this.endTimeList[8],
         "seasonStatus": seasonStatusList[8]
       },
       {
-        "uid": "690f446c-9b53-45e1-8b4e-f61cb83bb34c",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[9],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[9],
         "endTime": this.endTimeList[9],
         "seasonStatus": seasonStatusList[9]
       },
       {
-        "uid": "4a67dae8-dd89-4b2a-a1a9-dc26ad61cf59",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[10],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[10],
         "endTime": this.endTimeList[10],
         "seasonStatus": seasonStatusList[10]
       },
       {
-        "uid": "342b2156-31b2-4c2c-8248-a8afe8a977b0",
-        "setid": "5cbd1b8c-8eea-414f-bf9e-f981e9927864",
+        "uid": this.solarUid[11],
+        "setid": this.caseRoleKeyList[this.selected1],
         "startTime": this.startTimeList[11],
         "endTime": this.endTimeList[11],
         "seasonStatus": seasonStatusList[11]
       }
     ]
 
-
+    console.log(setBody);
+    console.log(solarBody);
 
     this.data2$ = this.datasvc.SystemSettingPa(setBody);
     this.data2$.subscribe((x)=>{
@@ -422,7 +430,7 @@ export class SystemSettingComponent implements OnInit {
 
     this.data3$ = this.datasvc.SystemSettingSunangle(solarBody);
     this.data3$.subscribe((x)=>{
-      // console.log(x);   //同上
+      console.log(x);   //同上
       this.solarResponse = x;
     })
     // console.log(setBody);
@@ -430,6 +438,75 @@ export class SystemSettingComponent implements OnInit {
     if(this.setResponse = ".Pa Set updata succeeded" && (this.solarResponse = ".Pa Solar updata succeeded")){
       alert("uploaded successfully!");
     }
+
+    this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]).subscribe((x: any)=>{
+      console.log(x);
+      this.manufacturer = x.set.manufacturer;
+      this.modelNo = x.set.modelNo;
+      this.type = x.set.type;
+      this.totalWaterFlowrate = x.set.totalWaterFlowrate;
+      this.waterFlowRateCell = x.set.waterFlowRateCell;
+      this.hotWaterTemp = x.set.hotWaterTemp;
+      this.coldWaterTemp = x.set.coldWaterTemp;
+      this.ambWetbulbTemp = x.set.ambWetbulbTemp;
+      this.evaporationLoss = x.set.evaporationLoss;
+      this.dirftLoss = x.set.dirftLoss;
+      this.noOfCell = x.set.noOfCell;
+      this.noOfFanCell = x.set.noOfFanCell;
+      this.totalNoOfFan = x.set.totalNoOfFan;
+      this.airVolumePerFan = x.set.airVolumePerFan;
+      this.noCell = x.set.noCell;
+      this.motorPowerSourcePhase = x.set.motorPowerSourcePhase;
+      this.motorPowerSourceHz = x.set.motorPowerSourceHz;
+      this.motorPowerSourceVolt = x.set.motorPowerSourceVolt;
+      this.motorNumberOfMotorPoles = x.set.motorNumberOfMotorPoles;
+      this.motorRatedHP = x.set.motorRatedHP;
+      this.motorRatedPower = x.set.motorRatedPower;
+      this.motorRatedAmp = x.set.motorRatedAmp;
+      this.pumpPowerSourcePhase = x.set.pumpPowerSourcePhase;
+      this.pumpPowerSourceHz = x.set.pumpPowerSourceHz;
+      this.pumpPowerSourceVolt = x.set.pumpPowerSourceVolt;
+      this.pumpNumberOfMotorPoles = x.set.pumpNumberOfMotorPoles;
+      this.pumpRatedHP = x.set.pumpRatedHP;
+      this.pumpRatedAmp = x.set.pumpRatedAmp;
+
+      // console.log(x[0].solar);
+      // console.log(Object.keys(x[0].solar[0]));
+
+      this.displayedColumns2 = ['startTime','endTime','seasonStatus'];
+      this.columnsToDisplay2 = ['startTime','endTime','seasonStatus'];
+      this.dataSource2 = x.solar;
+      // console.log(this.dataSource2);
+
+      this.fanOff = x.set.fanOff;
+      this.fanLowest = x.set.fanLowest;
+      this.fanFull = x.set.fanFull;
+      this.fanOverLoad = x.set.fanOverLoad;
+      this.pumpOff = x.set.pumpOff;
+      this.pumpLowest = x.set.pumpLowest;
+      this.pumpFull = x.set.pumpFull;
+      this.pumpOverLoad = x.set.pumpOverLoad;
+
+      this.sensorTempLowest = x.set.sensorTempLowest;
+      this.sensorTempHightest = x.set.sensorTempHightest;
+      this.sensorRhLowest = x.set.sensorRhLowest;
+      this.sensorRhHightest = x.set.sensorRhHightest;
+
+      this.btu_btuHwtLowest = x.set.btuHwtLowest;
+      this.btu_btuHwtHightest = x.set.btuHwtHightest;
+      this.btu_btuHwtOver = x.set.btuHwtOver;
+      this.btu_btuCwtLowest = x.set.btuCwtLowest;
+      this.btu_btuCwtHightest = x.set.btuCwtHightest;
+      this.btu_btuCwtOver = x.set.btuCwtOver;
+      this.btu_btuFlowOff = x.set.btuFlowOff;
+      this.btu_btuFlowOn = x.set.btuFlowOn;
+
+      this.solarUid = x.solar.map((item: { uid: any; }) => item.uid);
+      this.startTimeList = x.solar.map((item: { startTime: any; }) => item.startTime);
+      this.endTimeList = x.solar.map((item: { endTime: any; }) => item.endTime);
+
+      this.showSpinner  = false;
+    })
   }
 
 
