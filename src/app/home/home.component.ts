@@ -77,14 +77,14 @@ export class HomeComponent implements OnInit {
   dataSource: PeriodicElement[] = [];
 
   /*告警顏色判斷依據*/
-  fanOff: any;          //0.01
-  fanLowest: any;       //0.35
-  fanFull: any;         //0.95
+  fanNoload  : any;          //0.01
+  fanLightload: any;       //0.35
+  fanHightload: any;         //0.95
   fanOverLoad: any;     //1.1
 
-  pumpOff: any;         //0.01
-  pumpLowest: any;      //0.35
-  pumpFull: any;        //0.95
+  pumpNoload  : any;         //0.01
+  pumpLightload: any;      //0.35
+  pumpfanHightload: any;        //0.95
   pumpOverLoad: any;    //1.1
 
   sensorTempLowest: any;  //0
@@ -157,24 +157,26 @@ export class HomeComponent implements OnInit {
           this.data5$ = this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]);
           this.data5$.subscribe((x)=>{
             console.log(x);
-            this.fanOff = x.set.fanOff;
-            this.fanLowest = x.set.fanLowest;
-            this.fanFull = x.set.fanFull;
-            this.fanOverLoad = x.set.fanOverLoad;
-            this.pumpOff = x.set.pumpOff;
-            this.pumpLowest = x.set.pumpLowest;
-            this.pumpFull = x.set.pumpFull;
-            this.pumpOverLoad = x.set.pumpOverLoad;
-            this.sensorTempLowest = x.set.sensorTempLowest;
-            this.sensorTempHightest = x.set.sensorTempHightest;
-            this.btuHwtLowest = x.set.btuHwtLowest;
-            this.btuHwtHightest = x.set.btuHwtHightest;
-            this.btuHwtOver = x.set.btuHwtOver;
-            this.btuCwtLowest = x.set.btuCwtLowest;
-            this.btuCwtHightest = x.set.btuCwtHightest;
-            this.btuCwtOver = x.set.btuCwtOver;
-            this.btuFlowOff = x.set.btuFlowOff;
-            this.btuFlowOn = x.set.btuFlowOn;
+            this.fanNoload = parseFloat(x.set.fanOff);    //畫面改名稱,仍然抓取fanOff
+            this.fanLightload = parseFloat(x.set.fanLowest);
+            this.fanHightload = parseFloat(x.set.fanFull);
+            this.fanOverLoad = parseFloat(x.set.fanOverLoad);
+            this.pumpNoload = parseFloat(x.set.pumpOff);
+            this.pumpLightload = parseFloat(x.set.pumpLowest);
+            this.pumpfanHightload = parseFloat(x.set.pumpFull);
+            this.pumpOverLoad = parseFloat(x.set.pumpOverLoad);
+            this.sensorTempLowest = parseFloat(x.set.sensorTempLowest);
+            this.sensorTempHightest = parseFloat(x.set.sensorTempHightest);
+            this.btuHwtLowest = parseFloat(x.set.btuHwtLowest);
+            this.btuHwtHightest = parseFloat(x.set.btuHwtHightest);
+            this.btuHwtOver = parseFloat(x.set.btuHwtOver);
+            this.btuCwtLowest = parseFloat(x.set.btuCwtLowest);
+            this.btuCwtHightest = parseFloat(x.set.btuCwtHightest);
+            this.btuCwtOver = parseFloat(x.set.btuCwtOver);
+            this.btuFlowOff = parseFloat(x.set.btuFlowOff);
+            this.btuFlowOn = parseFloat(x.set.btuFlowOn);
+            console.log(this.btuFlowOff);
+            console.log(this.btuFlowOn);
           })
         });
       }

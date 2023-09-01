@@ -12,7 +12,7 @@
    <table border="1" class="electricity-table">
     <th colspan="7">ELECTRIC PARAMETER</th>
     <tr>
-      <td></td><td style="font-weight:bold; font-size: 15px;">Rate AMP</td><td style="background: #a6a6a6; font-weight:bold; font-size: 15px;">OFF</td><td style="background: #ff0000; font-weight:bold; font-size: 15px;">Lowest</td><td style="background: #ffff00; font-weight:bold; font-size: 15px;">Full</td><td style="background: #ff0000; font-weight:bold; font-size: 15px;">Over Load</td>
+      <td></td><td style="font-weight:bold; font-size: 15px;">Rate AMP</td><td style="background: #ff0000; font-weight:bold; font-size: 15px;">No load</td><td style="background: #ffff00; font-weight:bold; font-size: 15px;">Light load</td><td style="background: #ffff00; font-weight:bold; font-size: 15px;">High load</td><td style="background: #ff0000; font-weight:bold; font-size: 15px;">Over Load</td>
     </tr>
     <tr>
       <td>Fan Power</td><td>{{motorRatedAmp}}</td>
@@ -176,12 +176,12 @@
           </td><td></td>
         </tr>
         <tr>
-          <td>AIR VOLUME PER FAN (M3/MIN)</td>
+          <td>AIR VOLUME PER FAN (M3/min)</td>
           <td>
             <mat-form-field class="example-form-field" appearance="outline">
               <input matInput type="text" placeholder="" [(ngModel)]="airVolumePerFan">
             </mat-form-field>
-          </td><td>M3/HR</td>
+          </td><td>M3/min</td>
         </tr>
         <th [colSpan]="3">DRIVING MOTOR</th>
         <tr>

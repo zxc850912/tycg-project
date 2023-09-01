@@ -1,5 +1,4 @@
 import { HomeComponent } from './home/home.component';
-import { TestAreaComponent } from './test-area/test-area.component';
 import { LoginComponent } from './login/login.component';
 import { DAUComponent } from './dau/dau.component';
 import { GraphicalSymbolsComponent } from './graphical-symbols/graphical-symbols.component';
@@ -81,10 +80,6 @@ const routes: Routes = [
         component: AdvanceDataComponent,
         canActivate: [AuthGuard]
       },
-      // {
-      //   path: 'testarea',
-      //   component: TestAreaComponent,
-      // },
       {
         path: '',
         pathMatch: 'full',

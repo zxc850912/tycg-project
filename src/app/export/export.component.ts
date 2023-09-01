@@ -26,7 +26,10 @@ export class ExportComponent implements OnInit {
   caseRoleKeyList: any;
   nameList: any;
 
-  startDate: any;
+  startDay = moment().startOf('day').toDate();
+  endDay = moment().endOf('day').toDate();
+
+  // startDate: any;
   month: any;
   start = moment().format('YYYY-MM-DD');
   end = moment().format('YYYY-MM-DD');
@@ -39,6 +42,7 @@ export class ExportComponent implements OnInit {
   data3$ = new Observable<any>();
   data4$ = new Observable<any>();
   data5$ = new Observable<any>();
+  data6$ = new Observable<any>();
 
   deviceList: any;
   deviceName: any;
@@ -100,14 +104,29 @@ export class ExportComponent implements OnInit {
     // })
   }
 
+  startDate($event: any){
+    console.log($event);
+    const ttp = moment($event).format('YYYY-MM-DD HH:mm');
+    console.log(ttp);
+  }
+
+  endDate($event: any){
+    console.log($event);
+    const ttp = moment($event).format('YYYY-MM-DD HH:mm');
+    console.log(ttp);
+  }
+
+  checkDateRange() {
+    if (moment(this.startDay).isAfter(this.endDay)) {
+      // 如果起始日期晚於結束日期，將起始日期設定為結束日期
+      this.startDay = this.endDay;
+    }
+  }
+
   monthSeleted($event: any){
     console.log($event);
     const ttp = moment($event).format('YYYY-MM');
     console.log(ttp);
-  }
-
-  onDropdownChange(){
-
   }
 
   setMonthAndYear(normalizedMonthAndYear: moment.Moment, datepicker: MatDatepicker<moment.Moment>) {
@@ -126,10 +145,10 @@ export class ExportComponent implements OnInit {
     // console.log(this.end);
   }
 
-  logStartDate($event: any){
-    this.startDate = moment($event).format('YYYY-MM-DD');
-    // console.log(this.startDate);
-  }
+  // logStartDate($event: any){
+  //   this.startDate = moment($event).format('YYYY-MM-DD');
+  //   // console.log(this.startDate);
+  // }
 
   // getItem(){
   //   this.data3$ = this.datasvc.ExportItem();
@@ -148,7 +167,7 @@ export class ExportComponent implements OnInit {
     // console.log(this.downloadItem);
   }
 
-  downLoad(){
+  logDownLoad(){
     this.showSpinner = true;
     this.setItem = this.caseRoleKeyList[this.selected1];
     this.deviceName = this.nameList[this.selected1];
@@ -167,8 +186,39 @@ export class ExportComponent implements OnInit {
     console.log(this.reportName);
 
     console.log(this.setItem,this.downloadItem,body,option);
-    this.data5$ = this.datasvc.ExportDownload(this.setItem,this.downloadItem,body,option);
+    this.data5$ = this.datasvc.logDownLoad(this.setItem,this.downloadItem,body,option);
     this.data5$.subscribe((x)=>{
+      console.log(x);
+
+      const data: Blob = new Blob([x], {
+        type: "text/xlsx;charset=utf-8"
+      });
+      saveAs(data,this.reportName);
+      this.showSpinner = false;
+    })
+  }
+
+  analysisDownLoad(){
+    this.showSpinner = true;
+    this.setItem = this.caseRoleKeyList[this.selected1];
+    this.deviceName = this.nameList[this.selected1];
+
+    const startDay = moment(this.startDay).format('YYYY-MM-DD HH:mm');
+    const endDay = moment(this.endDay).format('YYYY-MM-DD HH:mm');
+
+    var body = {
+      "startTime": startDay,
+      "endTime": endDay
+    };
+    console.log(body);
+    var option = { responseType: "blob" as "json" };
+
+    this.reportName = this.deviceName + "_" + startDay + "-" + endDay + ".xlsx";
+    console.log(this.reportName);
+
+    console.log(this.setItem,body,option);
+    this.data6$ = this.datasvc.analysisDownLoad(this.setItem,body,option);
+    this.data6$.subscribe((x)=>{
       console.log(x);
 
       const data: Blob = new Blob([x], {

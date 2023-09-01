@@ -111,9 +111,9 @@ export class SystemSettingComponent implements OnInit {
         switchMap((caseRoleKeyList) => {
           this.caseRoleKeyList = caseRoleKeyList;
 
-          // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
           console.log("SystemSettingData called at", new Date());
           return this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]);
+          // 使用 switchMap，在這裡觸發 InformationData 方法，執行第一次後每60秒執行一次
           // return timer(0, 60000).pipe(
           //   switchMap(() => this.datasvc.SystemSettingData(this.caseRoleKeyList[this.selected1]))
           // );
@@ -184,6 +184,7 @@ export class SystemSettingComponent implements OnInit {
         this.startTimeList = x.solar.map((item: { startTime: any; }) => item.startTime);
         this.endTimeList = x.solar.map((item: { endTime: any; }) => item.endTime);
 
+        console.log(this.caseRoleKeyList[this.selected1]);
         this.showSpinner  = false;
       });
     })
@@ -422,15 +423,15 @@ export class SystemSettingComponent implements OnInit {
     console.log(setBody);
     console.log(solarBody);
 
-    this.data2$ = this.datasvc.SystemSettingPa(setBody);
+    this.data2$ = this.datasvc.SystemSettingPa(setBody,this.caseRoleKeyList[this.selected1]);
     this.data2$.subscribe((x)=>{
       // console.log(x);   //這邊解析後回傳的是text,所以service那邊要給回傳型態,不然無法解析
       this.setResponse = x;
     })
 
-    this.data3$ = this.datasvc.SystemSettingSunangle(solarBody);
+    this.data3$ = this.datasvc.SystemSettingSunangle(solarBody,this.caseRoleKeyList[this.selected1]);
     this.data3$.subscribe((x)=>{
-      console.log(x);   //同上
+      // console.log(x);   //同上
       this.solarResponse = x;
     })
     // console.log(setBody);

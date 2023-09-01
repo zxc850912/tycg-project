@@ -585,6 +585,7 @@ export class CurveComponent implements OnInit {
         xAxis: {
           type: 'value',
           min: 0,
+          scale: true,
           axisLabel: {
             rotate: 30,
             // interval: 10

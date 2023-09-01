@@ -4,16 +4,30 @@
   <mat-datepicker #picker1 color="primary" startView="multi-year" (monthSelected)="setMonthAndYear($event, picker1)" panelClass="example-month-picker"></mat-datepicker>
 </mat-form-field> -->
 
-<div class="field col-12 md:col-4">
-  <p-calendar [(ngModel)]="month" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputId="monthpicker" (ngModelChange)="monthSeleted($event)"></p-calendar>
-  <mat-form-field appearance="outline" class="custom-form-field">
-    <mat-select [(value)]="selected2" (selectionChange)="getData()">
-      <mat-option *ngFor="let item of itemList;let i=index" [value]="i">
-        {{item}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-raised-button (click)="downLoad()">Download</button>
+<div class="filter-container">
+  <div>
+    <span>
+      <label>log</label>
+    </span>
+    <p-calendar [(ngModel)]="month" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputId="monthpicker" (ngModelChange)="monthSeleted($event)"></p-calendar>
+    <mat-form-field appearance="outline" class="custom-form-field">
+      <mat-select [(value)]="selected2" (selectionChange)="getData()">
+        <mat-option *ngFor="let item of itemList;let i=index" [value]="i">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="logDownLoad()">Download</button>
+  </div>
+
+  <div>
+    <span>
+      <label>analysis</label>
+    </span>
+    <p-calendar [(ngModel)]="startDay" [showTime]="true" [showSeconds]="false" inputId="time" (ngModelChange)="startDate($event)" appendTo="body" (onSelect)="checkDateRange()"></p-calendar>
+    <p-calendar [(ngModel)]="endDay" [showTime]="true" [showSeconds]="false" inputId="time" (ngModelChange)="endDate($event)" appendTo="body" (onSelect)="checkDateRange()"></p-calendar>
+    <button mat-raised-button (click)="analysisDownLoad()">Download</button>
+  </div>
 </div>
 
 <!-- <mat-form-field appearance="outline" class="custom-form-field">

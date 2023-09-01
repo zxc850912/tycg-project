@@ -37,7 +37,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MonthDirective } from './export/directives/month.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginComponent } from './login/login.component';
-import { TestAreaComponent } from './test-area/test-area.component';
 import { HomeComponent } from './home/home.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 //PrimeNG 套件
@@ -60,7 +59,6 @@ import { CalendarModule } from 'primeng/calendar';
     ExportComponent,
     MonthDirective,
     LoginComponent,
-    TestAreaComponent,
     HomeComponent,
   ],
   imports: [

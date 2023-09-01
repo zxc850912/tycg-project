@@ -102,8 +102,14 @@ export class DataService {
     return this.http.get(this.apiUrl + 'get-download-Item')
   }
 
-  ExportDownload(setItem: any,downloadItem: any,x: any,option: any){        //報表下載
+  logDownLoad(setItem: any,downloadItem: any,x: any,option: any){        //報表log下載
     return this.http.post(this.apiUrl + 'Export/api/post-download-report?setItem='+ setItem + '&downloadItem=' + downloadItem,
+      x,option
+    );
+  }
+
+  analysisDownLoad(setItem: any,x: any,option: any){        //報表analysis下載
+    return this.http.post(this.apiUrl + 'Export/api/post-download-analysis?setId='+ setItem,
       x,option
     );
   }
@@ -112,14 +118,14 @@ export class DataService {
     return this.http.get(this.apiUrl + 'get-system.pa?setid=' + seleted)
   }
 
-  SystemSettingPa(x: any){
-    return this.http.post(this.apiUrl + 'post-system.pa-set',
+  SystemSettingPa(x: any,setId: any){
+    return this.http.post(this.apiUrl + 'post-system.pa-set?setId=' + setId,
       x,{responseType: 'text'}
     );
   }
 
-  SystemSettingSunangle(x: any){
-    return this.http.post(this.apiUrl + 'post-system.pa-solar',
+  SystemSettingSunangle(x: any,setId: any){
+    return this.http.post(this.apiUrl + 'post-system.pa-solar?setId=' + setId,
       x,{responseType: 'text'}
     );
   }

@@ -1,9 +1,20 @@
-p-dropdown{
-  margin: 10px 20px;
+.filter-container{
+  background: gray;
+  height: 180px;
+  border-radius: 8px;
 }
 
-.custom-dropdown {
-  width: 100%;
+p-calendar{
+  margin: 10px;
+}
+
+label{
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: bold;
 }
 
 mat-form-field{
@@ -23,7 +34,7 @@ button{
   height: 50px;
   font-size: 20px;
   border:0;
-  background-color:#003C9D;
+  background:#003C9D;
   color:#fff;
   border-radius:10px;
   cursor:pointer;
@@ -31,8 +42,8 @@ button{
 
 button:hover{
   color:#003C9D;
-  background-color:#fff;
-  border:2px #003C9D solid;
+  background:#fff;
+  border: 2px #003C9D solid;
   transform: scale(1.2);
 }
 

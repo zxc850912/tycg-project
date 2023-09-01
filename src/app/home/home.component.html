@@ -82,16 +82,18 @@
               element[column] === 'ON' ? 'red' :
               element[column] === 'Normal' ? 'green' :
 
-              element[column] < fanOff && column === 'fan_Power_A' ? 'grey' :
-              element[column] > fanOff && element[column] < fanLowest && column === 'fan_Power_A' ? 'red' :
-              element[column] > fanLowest && element[column] < fanFull && column === 'fan_Power_A' ? 'green' :
-              element[column] > fanFull && element[column] < fanOverLoad && column === 'fan_Power_A' ? 'orange' :
+              element[column] < 1 && column === 'fan_Power_A' ? 'grey' :
+              element[column] > 1 && element[column] < fanNoload && column === 'fan_Power_A' ? 'red' :
+              element[column] > fanNoload && element[column] < fanLightload && column === 'fan_Power_A' ? 'orange' :
+              element[column] > fanLightload && element[column] < fanHightload && column === 'fan_Power_A' ? 'green' :
+              element[column] > fanHightload && element[column] < fanOverLoad && column === 'fan_Power_A' ? 'orange' :
               element[column] > fanOverLoad && column === 'fan_Power_A' ? 'red' :
 
-              element[column] < pumpOff && column === 'pump_Power_A' ? 'grey' :
-              element[column] > pumpOff && element[column] < pumpLowest && column === 'pump_Power_A' ? 'red' :
-              element[column] > pumpLowest && element[column] < pumpFull && column === 'pump_Power_A' ? 'green' :
-              element[column] > pumpFull && element[column] < pumpOverLoad && column === 'pump_Power_A' ? 'orange' :
+              element[column] < 1 && column === 'pump_Power_A' ? 'grey' :
+              element[column] > 1 && element[column] < pumpNoload && column === 'pump_Power_A' ? 'red' :
+              element[column] > pumpNoload && element[column] < pumpLightload && column === 'pump_Power_A' ? 'orange' :
+              element[column] > pumpLightload && element[column] < pumpfanHightload && column === 'pump_Power_A' ? 'green' :
+              element[column] > pumpfanHightload && element[column] < pumpOverLoad && column === 'pump_Power_A' ? 'orange' :
               element[column] > pumpOverLoad && column === 'pump_Power_A' ? 'red' :
 
               element[column] <= btuFlowOff && column === 'water_Flow' ? 'grey' :
@@ -115,16 +117,18 @@
               element[column] === 'OFF' ? 'white' :
               element[column] === 'Normal' ? 'white' :
 
-              element[column] < fanOff && column === 'fan_Power_A' ? 'white' :
-              element[column] > fanOff && element[column] < fanLowest && column === 'fan_Power_A' ? 'white' :
-              element[column] > fanLowest && element[column] < fanFull && column === 'fan_Power_A' ? 'white' :
-              element[column] > fanFull && element[column] < fanOverLoad && column === 'fan_Power_A' ? 'white' :
+              element[column] < 1 && column === 'fan_Power_A' ? 'white' :
+              element[column] > 1 && element[column] < fanNoload && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanNoload && element[column] < fanLightload && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanLightload && element[column] < fanHightload && column === 'fan_Power_A' ? 'white' :
+              element[column] > fanHightload && element[column] < fanOverLoad && column === 'fan_Power_A' ? 'white' :
               element[column] > fanOverLoad && column === 'fan_Power_A' ? 'white' :
 
-              element[column] < pumpOff && column === 'pump_Power_A' ? 'white' :
-              element[column] > pumpOff && element[column] < pumpLowest && column === 'pump_Power_A' ? 'white' :
-              element[column] > pumpLowest && element[column] < pumpFull && column === 'pump_Power_A' ? 'white' :
-              element[column] > pumpFull && element[column] < pumpOverLoad && column === 'pump_Power_A' ? 'white' :
+              element[column] < 1 && column === 'pump_Power_A' ? 'white' :
+              element[column] > 1 && element[column] < pumpNoload && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpNoload && element[column] < pumpLightload && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpLightload && element[column] < pumpfanHightload && column === 'pump_Power_A' ? 'white' :
+              element[column] > pumpfanHightload && element[column] < pumpOverLoad && column === 'pump_Power_A' ? 'white' :
               element[column] > pumpOverLoad && column === 'pump_Power_A' ? 'white' :
 
               element[column] <= btuFlowOff && column === 'water_Flow' ? 'white' :
@@ -237,27 +241,11 @@
         </table>
       </div>
     </mat-expansion-panel>
-
-    <!-- <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          16樓水塔
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel> -->
   </mat-accordion>
 
 
   <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-      <!-- <mat-form-field appearance="outline">
-        <mat-select [(value)]="selected1" (selectionChange)="changeCase()">
-          <mat-option *ngFor="let item of caseList; let i=index" [value]="i">
-            {{item}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
       <div class="dropdown-container">
         <p-dropdown class="test" [options]="caseList" [(ngModel)]="selected1" (onChange)="onDropdownChange()"></p-dropdown>
       </div>
@@ -289,13 +277,11 @@
       <button mat-button class="menu-button" routerLink="/Home/Export" (click)="onButtonClick('Export')" routerLinkActive="menu-button-select">
         <span>Export</span>
       </button>
-      <!-- <button mat-button class="menu-button" routerLink="/Home/testarea" routerLinkActive="menu-button-select">
-        <span>testarea</span>
-      </button> -->
 
-      <!-- <button mat-button class="menu-button" routerLink="/AdvanceData">
+      <button mat-button class="menu-button" routerLink="/Home/AdvanceData" (click)="onButtonClick('AdvanceData')" routerLinkActive="menu-button-select">
         <span>Advance data</span>
-      </button> -->
+      </button>
+
       <div class="bottom-container">
         <button mat-button class="logout-button" matTooltip="Are you sure you want to log out?" matTooltipPosition="above" (click)="logout()">
           <span>Logout</span>
