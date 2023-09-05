@@ -86,7 +86,9 @@
         <button mat-raised-button class="mainbtn" (click)="scatterDemand()">Queries</button>
         <br>
         <!-- <div echarts [options]="option2" [theme]="theme" class="demo-chart" style="height:600px;"></div> -->
-        <div echarts [options]="option2" class="scatter-chart" style="height: 600px;"></div>
+        <div class="scatter-container">
+          <div echarts [options]="option2" class="scatter-chart"></div>
+        </div>
       </div>
       <!-- <p *ngSwitchCase="2">
 

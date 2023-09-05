@@ -129,4 +129,11 @@ export class DataService {
       x,{responseType: 'text'}
     );
   }
+
+  /** advance data*/
+  advanceData(setid: any){
+    return this.http.get(this.apiUrl + 'get-advancedata?setid=' + setid)
+  }
+
+
 }

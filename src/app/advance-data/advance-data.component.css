@@ -1,0 +1,120 @@
+table{
+  width: 100%;
+  border: solid 1px #98bedb;
+  flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th{
+  font-weight: bold;
+}
+
+tr{
+  text-align: center;
+}
+
+.date-container{
+  margin: 10px;
+}
+
+.table-container{
+  display: flex;
+}
+
+.side-container{
+  display: flex;
+}
+
+.cell-container{
+  flex: 1;
+  margin: 10px;
+}
+
+.iSensors-container{
+  flex: 1;
+  margin: 4px;
+}
+
+.oSensors-container{
+  flex: 1;
+  margin: 4px;
+}
+
+.flow-container{
+  flex: 1;
+  margin: 10px;
+}
+
+.fan-container{
+  flex: 1;
+  margin: 10px;
+}
+
+.pump-container{
+  flex: 1;
+  margin: 10px;
+}
+
+.other-container{
+  flex: 1;
+  margin: 10px;
+}
+
+.environmental-container{
+  flex: 1;
+  margin: 10px;
+}
+
+.light-background{
+  background: #cddeed;
+  text-align: center;
+}
+
+.dark-background{
+  background: #98bedb;
+  text-align: center;
+}
+
+/* 更改所有mat-accordion的背景色 */
+.mat-accordion {
+  background: #064789;
+}
+
+.mat-accordion .mat-expansion-panel{
+  background: #dae8fc;
+}
+
+/* 更改mat-accordion的標題顏色 */
+.mat-accordion .mat-expansion-panel-header {
+  background: #064789;
+  color: #333;
+}
+
+.mat-accordion .mat-expansion-panel-header:hover{
+  background: #064789;
+  color: #333;
+}
+
+/* 更改mat-accordion的内容區域顏色 */
+.mat-accordion .mat-expansion-panel-content {
+  background: #064789;
+  color: #333;
+}
+
+mat-panel-title{
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-header-cell{
+  text-align: center;
+}
+
+.mat-cell{
+  text-align: center;
+}
+

@@ -568,7 +568,6 @@ export class CurveComponent implements OnInit {
     this.data3$ = this.datasvc.CurveScatterChart(this.setItem,this.targetName,this.maxValue,this.minValue,this.Xaxis,this.Yaxis,body);
     this.data3$.subscribe((x)=>{
       // console.log(x);
-
       this.option2 = {
         title: {
           text: this.deviceData[0].name + ' ' + this.targetName,   //抽換標題
@@ -585,6 +584,7 @@ export class CurveComponent implements OnInit {
         xAxis: {
           type: 'value',
           min: 0,
+          max: 60, // 設定 x 軸的最大值，根據您的數據範圍調整
           scale: true,
           axisLabel: {
             rotate: 30,
@@ -597,6 +597,7 @@ export class CurveComponent implements OnInit {
         yAxis: {
           type: 'value',
           min: 0,
+          max: 60, // 設定 x 軸的最大值，根據您的數據範圍調整
           scale: true,
           name: this.Yaxis,
           nameTextStyle:{
@@ -609,10 +610,9 @@ export class CurveComponent implements OnInit {
             symbolSize: 5,
             data: x.data
           }
-        ]
+        ],
       };
       this.showSpinner = false;
     })
   }
-
 }

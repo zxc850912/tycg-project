@@ -1,0 +1,253 @@
+<!-- 水塔部分 -->
+<mat-accordion multi>
+  <mat-expansion-panel expanded="true" disabled>
+    <mat-expansion-panel-header>
+      <mat-panel-title style="color: #fff;">
+        {{name}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="date-container">
+      <table>
+        <th class="light-background">sunrise</th><td class="dark-background"> {{setData.sunrise}} </td>
+        <th class="light-background">sunset</th><td class="dark-background">{{setData.sunset}}</td>
+        <th class="light-background">date</th><td class="dark-background">{{setData.date}}</td>
+        <th class="light-background">time</th><td class="dark-background">{{setData.time}}</td>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <div class="flow-container">
+        <table border="1">
+          <tr>
+            <th class="light-background">Water Flow(CMH)</th>
+            <th class="light-background">Water Flow(LPM)</th>
+            <th class="light-background">Hot Water Temp(°C)</th>
+            <th class="light-background">Cold Water Temp(°C)</th>
+            <th class="light-background">Water Flow Ratio(%)</th>
+          </tr>
+          <tr>
+            <td class="dark-background">{{flowData.cFlow | number:'1.2-2'}}</td>
+            <td class="dark-background">{{flowData.lFlow | number:'1.2-2'}}</td>
+            <td class="dark-background">{{flowData.inputTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{flowData.outputTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{flowData.flowPercent | number:'1.2-2'}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="fan-container">
+        <table border="1">
+          <tr>
+            <th class="light-background">Pump Power(kW)</th>
+            <th class="light-background">Power Factor</th>
+            <th class="light-background">Pump Power Amp.(A)</th>
+            <th class="light-background">Pump Power Ratio(%)</th>
+          </tr>
+          <tr>
+            <td class="dark-background">{{fanData.kw | number:'1.2-2'}}</td>
+            <td class="dark-background">{{fanData.ratedPower | number:'1.2-2'}}</td>
+            <td class="dark-background">{{fanData.pf | number:'1.2-2'}}</td>
+            <td class="dark-background">{{fanData.aAvg | number:'1.2-2'}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="pump-container">
+        <table border="1">
+          <tr>
+            <th class="light-background">Fan Power(kW)</th>
+            <th class="light-background">Power Factor</th>
+            <th class="light-background">Fan Power Amp.(A)</th>
+            <th class="light-background">Fan Power PLR(%)</th>
+          </tr>
+          <tr>
+            <td class="dark-background">{{pumpData.kw | number:'1.2-2'}}</td>
+            <td class="dark-background">{{pumpData.ratedPower | number:'1.2-2'}}</td>
+            <td class="dark-background">{{pumpData.pf | number:'1.2-2'}}</td>
+            <td class="dark-background">{{pumpData.aAvg | number:'1.2-2'}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="other-container">
+        <table border="1">
+          <tr>
+            <th class="light-background">Range Temp.(°C)</th>
+            <th class="light-background">Approach(°C)</th>
+            <th class="light-background">Inlet Air WB(°C)</th>
+            <th class="light-background">Outlet Air WB(°C)</th>
+            <th class="light-background">Inlet Air Enthalpy(kg/m³)</th>
+            <th class="light-background">Outlet Air Enthalpy(kg/m³)</th>
+            <th class="light-background">Enthalpy Difference(kg/m³)</th>
+            <th class="light-background">Load PLR(%)</th>
+          </tr>
+          <tr>
+            <td class="dark-background">{{setData.rangeTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.appr | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inWetBulbTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.outWetBulbTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inEnthalpy | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.outEnthalpy | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.rangeEnthalpy | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.electricLoadRate | number:'1.2-2'}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- 環境 environmental status部分 -->
+<mat-accordion multi>
+  <mat-expansion-panel expanded="true" disabled>
+    <mat-expansion-panel-header>
+      <mat-panel-title style="color: #fff;">
+        {{environmental}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="table-container">
+      <div class="environmental-container">
+        <table border="1">
+          <tr>
+            <th class="light-background">DB(°C)</th>
+            <th class="light-background">RH(%)</th>
+            <th class="light-background">WB(°C)</th>
+            <th class="light-background">AH(g/m³)</th>
+            <th class="light-background">ED(kg/m³)</th>
+            <th class="light-background">DP(°C)</th>
+            <th class="light-background">Season status</th>
+            <th class="light-background">Sun status</th>
+            <th class="light-background">Solar zenith angle</th>
+            <th class="light-background">Solar azimuth angle</th>
+            <th class="light-background">Solar illumination</th>
+            <th class="light-background">Wind speed</th>
+            <th class="light-background">Wind direction</th>
+          </tr>
+          <tr>
+            <td class="dark-background">{{setData.inputTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inRelativeHumidity | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inWetBulbTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inAbsoluteHumidity | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inEnthalpy | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.inDewPointTemp | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.seasonStatus | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.sun_Status}}</td>
+            <td class="dark-background">{{setData.solar_Zenith_Angle | number:'1.4-4'}}</td>
+            <td class="dark-background">{{setData.solar_Azemuth_Angle | number:'1.4-4'}}</td>
+            <td class="dark-background">{{setData.illumination | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.windSpeed | number:'1.2-2'}}</td>
+            <td class="dark-background">{{setData.wind_8}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- cells部分 -->
+<mat-accordion multi *ngFor="let item of setData.cells">
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{item.name}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div>
+      <div class="table-container">
+        <div class="cell-container">
+          <table border="1">
+            <tr>
+              <th class="light-background">Fan Power(kW)</th>
+              <th class="light-background">Power Factor</th>
+              <th class="light-background">Fan Power Amp.(A)</th>
+              <th class="light-background">Fan Power PLR(%)</th>
+              <th class="light-background">Inlet Air WB(°C)</th>
+              <th class="light-background">Inlet Air Enthalpy(kg/m3)</th>
+              <th class="light-background">Outlet Air Enthalpy(kg/m3)</th>
+              <th class="light-background">Enthalpy Difference(kg/m3)</th>
+              <th class="light-background">Outlet Air WB(°C)</th>
+            </tr>
+            <tr>
+              <td class="dark-background"> {{item.fan.kw | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.fan.pf | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.fan.aAvg | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.fan.ratedPower | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.inWetBulbTemp | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.inEnthalpy | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.outEnthalpy | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.rangeEnthalpy | number:'1.2-2'}} </td>
+              <td class="dark-background"> {{item.outWetBulbTemp | number:'1.2-2'}} </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-container">
+      <div class="iSensors-container">
+        <table mat-table [dataSource]="item.iSensors" class="mat-elevation-z8">
+          <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay;let i=index">
+            <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{ displayedColumns[i] }} </th>
+            <td mat-cell *matCellDef="let element" style="padding:0;"> {{ element[column] }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="sensor">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed; padding: 0;"> Sensor </th>
+          </ng-container>
+
+          <ng-container matColumnDef="WB">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed;"> Inlet Air WB(°C) </th>
+          </ng-container>
+
+          <ng-container matColumnDef="DB">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed;"> Inlet Air DB(°C) </th>
+          </ng-container>
+
+          <ng-container matColumnDef="RH">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed; padding: 0;"> Inlet Air RH(%) </th>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['sensor', 'WB', 'DB', 'RH']"></tr>
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+      <div class="oSensors-container">
+        <table mat-table [dataSource]="item.oSensors" class="mat-elevation-z8">
+          <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay2;let i=index">
+            <th mat-header-cell *matHeaderCellDef style="padding:0;"> {{ displayedColumns2[i] }} </th>
+            <td mat-cell *matCellDef="let element" style="padding:0;"> {{ element[column] }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="sensor">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed; padding: 0;"> Sensor </th>
+          </ng-container>
+
+          <ng-container matColumnDef="WB">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed;"> Outlet Air WB(°C) </th>
+          </ng-container>
+
+          <ng-container matColumnDef="DB">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed;"> Outlet Air DB(°C) </th>
+          </ng-container>
+
+          <ng-container matColumnDef="RH">
+            <th mat-header-cell *matHeaderCellDef style="background: #cddeed; padding: 0;"> Outlet Air RH(%) </th>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['sensor', 'WB', 'DB', 'RH']"></tr>
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr> -->
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+        </table>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
